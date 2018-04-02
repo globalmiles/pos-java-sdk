@@ -1,0 +1,84 @@
+/*
+ * GlobalMilesPos
+ *
+ * This file was automatically generated for Global Miles by APIMATIC v2.0 ( https://apimatic.io ).
+ */
+package com.globalmiles.pos.models;
+
+import java.util.*;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonSetter;
+
+public class StartBonusPaymentRequest 
+        implements java.io.Serializable {
+    private static final long serialVersionUID = 4748749187108982717L;
+    private int totalReceiptAmount;
+    private int totalBonusAmount;
+    private int recognitionId;
+    private String oKCSicilNo;
+    /** GETTER
+     * Total Receipt Amount  ex:12.35 TL == 1235
+     */
+    @JsonGetter("totalReceiptAmount")
+    public int getTotalReceiptAmount ( ) { 
+        return this.totalReceiptAmount;
+    }
+    
+    /** SETTER
+     * Total Receipt Amount  ex:12.35 TL == 1235
+     */
+    @JsonSetter("totalReceiptAmount")
+    public void setTotalReceiptAmount (int value) { 
+        this.totalReceiptAmount = value;
+    }
+ 
+    /** GETTER
+     * Total Bonus(Mile) Amount  that has been used in the shopping  ex:0.85 TL == 85
+     */
+    @JsonGetter("totalBonusAmount")
+    public int getTotalBonusAmount ( ) { 
+        return this.totalBonusAmount;
+    }
+    
+    /** SETTER
+     * Total Bonus(Mile) Amount  that has been used in the shopping  ex:0.85 TL == 85
+     */
+    @JsonSetter("totalBonusAmount")
+    public void setTotalBonusAmount (int value) { 
+        this.totalBonusAmount = value;
+    }
+ 
+    /** GETTER
+     * Session based user identification number
+     */
+    @JsonGetter("recognitionId")
+    public int getRecognitionId ( ) { 
+        return this.recognitionId;
+    }
+    
+    /** SETTER
+     * Session based user identification number
+     */
+    @JsonSetter("recognitionId")
+    public void setRecognitionId (int value) { 
+        this.recognitionId = value;
+    }
+ 
+    /** GETTER
+     * Terminal code.
+     */
+    @JsonGetter("OKCSicilNo")
+    public String getOKCSicilNo ( ) { 
+        return this.oKCSicilNo;
+    }
+    
+    /** SETTER
+     * Terminal code.
+     */
+    @JsonSetter("OKCSicilNo")
+    public void setOKCSicilNo (String value) { 
+        this.oKCSicilNo = value;
+    }
+ 
+}
+ 

@@ -1,0 +1,67 @@
+/*
+ * GlobalMilesPos
+ *
+ * This file was automatically generated for Global Miles by APIMATIC v2.0 ( https://apimatic.io ).
+ */
+package com.globalmiles.pos.models;
+
+import java.util.*;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonSetter;
+
+public class GetBonusProvisionsResponse 
+        implements java.io.Serializable {
+    private static final long serialVersionUID = 4660213267483190792L;
+    private int returnCode;
+    private String returnDesc;
+    private List<BonusProvision> bonusProvisions;
+    /** GETTER
+     * 0  Success, 1 and bigger than 1 unsuccessful
+     */
+    @JsonGetter("returnCode")
+    public int getReturnCode ( ) { 
+        return this.returnCode;
+    }
+    
+    /** SETTER
+     * 0  Success, 1 and bigger than 1 unsuccessful
+     */
+    @JsonSetter("returnCode")
+    public void setReturnCode (int value) { 
+        this.returnCode = value;
+    }
+ 
+    /** GETTER
+     * if success return is empty. if unsuccessful it returns error message
+     */
+    @JsonGetter("returnDesc")
+    public String getReturnDesc ( ) { 
+        return this.returnDesc;
+    }
+    
+    /** SETTER
+     * if success return is empty. if unsuccessful it returns error message
+     */
+    @JsonSetter("returnDesc")
+    public void setReturnDesc (String value) { 
+        this.returnDesc = value;
+    }
+ 
+    /** GETTER
+     * TODO: Write general description for this method
+     */
+    @JsonGetter("bonusProvisions")
+    public List<BonusProvision> getBonusProvisions ( ) { 
+        return this.bonusProvisions;
+    }
+    
+    /** SETTER
+     * TODO: Write general description for this method
+     */
+    @JsonSetter("bonusProvisions")
+    public void setBonusProvisions (List<BonusProvision> value) { 
+        this.bonusProvisions = value;
+    }
+ 
+}
+ 
