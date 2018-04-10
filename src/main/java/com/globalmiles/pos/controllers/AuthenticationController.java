@@ -42,18 +42,14 @@ public class AuthenticationController extends BaseController {
 
     /**
      * An access token will allow you to make requests for the system. We support only one type of token: client_credentials
-     * @param    accept    Required parameter: It advertises which content type is able to understand.
-     * @param    contentType    Required parameter: It tells the client what the content type of the returned.
      * @param    body    Required parameter: The body of the request.
      * @return    Returns the OAuthResponse response from the API call 
      */
     public OAuthResponse createAuthentication(
-                final String accept,
-                final String contentType,
                 final OAuthRequest body
     ) throws Throwable {
         APICallBackCatcher<OAuthResponse> callback = new APICallBackCatcher<OAuthResponse>();
-        createAuthenticationAsync(accept, contentType, body, callback);
+        createAuthenticationAsync(body, callback);
         if(!callback.isSuccess())
             throw callback.getError();
         return callback.getResult();
@@ -61,14 +57,10 @@ public class AuthenticationController extends BaseController {
 
     /**
      * An access token will allow you to make requests for the system. We support only one type of token: client_credentials
-     * @param    accept    Required parameter: It advertises which content type is able to understand.
-     * @param    contentType    Required parameter: It tells the client what the content type of the returned.
      * @param    body    Required parameter: The body of the request.
      * @return    Returns the void response from the API call 
      */
     public void createAuthenticationAsync(
-                final String accept,
-                final String contentType,
                 final OAuthRequest body,
                 final APICallBack<OAuthResponse> callBack
     ) {
@@ -85,11 +77,11 @@ public class AuthenticationController extends BaseController {
 
                 //load all headers for the outgoing API request
                 Map<String, String> _headers = new HashMap<String, String>() {
-                    private static final long serialVersionUID = 5171266007805022089L;
+                    private static final long serialVersionUID = 5477886652250500966L;
                     {
-                        put( "Accept", accept );
-                        put( "Content-Type", contentType );
                         put( "user-agent", "APIMATIC 2.0" );
+                        put( "accept", "application/json" );
+                        put( "content-type", "application/json" );
                     }
                 };
 

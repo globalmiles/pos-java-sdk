@@ -11,10 +11,10 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class CompleteBonusPaymentRequest 
         implements java.io.Serializable {
-    private static final long serialVersionUID = 5756098292115516846L;
+    private static final long serialVersionUID = 4658982953901610444L;
     private String bonusPaymentProvisionId;
-    private String oTP;
     private String oKCSicilNo;
+    private String oTP;
     /** GETTER
      * Provision ID
      */
@@ -32,22 +32,6 @@ public class CompleteBonusPaymentRequest
     }
  
     /** GETTER
-     * One time password that sends to customer phone
-     */
-    @JsonGetter("OTP")
-    public String getOTP ( ) { 
-        return this.oTP;
-    }
-    
-    /** SETTER
-     * One time password that sends to customer phone
-     */
-    @JsonSetter("OTP")
-    public void setOTP (String value) { 
-        this.oTP = value;
-    }
- 
-    /** GETTER
      * Terminal code.
      */
     @JsonGetter("OKCSicilNo")
@@ -61,6 +45,22 @@ public class CompleteBonusPaymentRequest
     @JsonSetter("OKCSicilNo")
     public void setOKCSicilNo (String value) { 
         this.oKCSicilNo = value;
+    }
+ 
+    /** GETTER
+     * One time password that sends to customer phone
+     */
+    @JsonGetter("OTP")
+    public String getOTP ( ) { 
+        return this.oTP;
+    }
+    
+    /** SETTER
+     * One time password that sends to customer phone
+     */
+    @JsonSetter("OTP")
+    public void setOTP (String value) { 
+        this.oTP = value;
     }
  
 }

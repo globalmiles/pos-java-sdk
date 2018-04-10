@@ -11,9 +11,9 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class StartBonusPaymentRequest 
         implements java.io.Serializable {
-    private static final long serialVersionUID = 4748749187108982717L;
+    private static final long serialVersionUID = 5557378578753644812L;
     private int totalReceiptAmount;
-    private int totalBonusAmount;
+    private int usedBonusAmount;
     private int recognitionId;
     private String oKCSicilNo;
     /** GETTER
@@ -33,19 +33,19 @@ public class StartBonusPaymentRequest
     }
  
     /** GETTER
-     * Total Bonus(Mile) Amount  that has been used in the shopping  ex:0.85 TL == 85
+     * Used Bonus(Mile) Amount that has been used in the shopping  ex:0.85 TL == 85
      */
-    @JsonGetter("totalBonusAmount")
-    public int getTotalBonusAmount ( ) { 
-        return this.totalBonusAmount;
+    @JsonGetter("usedBonusAmount")
+    public int getUsedBonusAmount ( ) { 
+        return this.usedBonusAmount;
     }
     
     /** SETTER
-     * Total Bonus(Mile) Amount  that has been used in the shopping  ex:0.85 TL == 85
+     * Used Bonus(Mile) Amount that has been used in the shopping  ex:0.85 TL == 85
      */
-    @JsonSetter("totalBonusAmount")
-    public void setTotalBonusAmount (int value) { 
-        this.totalBonusAmount = value;
+    @JsonSetter("usedBonusAmount")
+    public void setUsedBonusAmount (int value) { 
+        this.usedBonusAmount = value;
     }
  
     /** GETTER

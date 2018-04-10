@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class CancelBonusPaymentRequest 
         implements java.io.Serializable {
-    private static final long serialVersionUID = 5037912392605894541L;
+    private static final long serialVersionUID = 4830329009999426894L;
     private String bonusPaymentProvisionId;
     private String oKCSicilNo;
     /** GETTER

@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class StartBonusPaymentResponse 
         implements java.io.Serializable {
-    private static final long serialVersionUID = 5636715311011666138L;
+    private static final long serialVersionUID = 5064098430183755138L;
     private int returnCode;
     private String returnDesc;
     private String bonusPaymentProvisionId;

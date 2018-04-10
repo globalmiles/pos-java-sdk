@@ -43,7 +43,7 @@ public class Configuration {
     public static String getBaseUri(Servers server) {
         StringBuilder baseUrl = new StringBuilder(environmentsMap.get(Configuration.environment).get(server));
         Map<String, Object> parameters = new HashMap<String, Object>() {
-            private static final long serialVersionUID = 5016570578345378496L;
+            private static final long serialVersionUID = 4862443404966318022L;
             {
             }
         };
@@ -63,10 +63,10 @@ public class Configuration {
      * Map of all base URLs by environments and server aliases 
      */
     private static EnumMap<Environments, EnumMap<Servers, String>> environmentsMap = new EnumMap<Environments, EnumMap<Servers,String>>(Environments.class) {
-        private static final long serialVersionUID = 5710560786003292137L;
+        private static final long serialVersionUID = 4938339464867384356L;
         {
             put(Environments.CLOUD , new EnumMap<Servers, String>(Servers.class) {
-                private static final long serialVersionUID = 5187398335849899564L;
+                private static final long serialVersionUID = 4806122118189489752L;
                 {
                     put(Servers.DEFAULT, "https://api.sandbox.globalmiles.com");
                 }

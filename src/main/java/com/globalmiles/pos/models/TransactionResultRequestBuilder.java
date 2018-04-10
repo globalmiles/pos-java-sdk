@@ -59,7 +59,7 @@ public class TransactionResultRequestBuilder {
     }
 
     /**
-     * session based İdentification Number .
+     * Session based Identification Number .
      */
     public TransactionResultRequestBuilder recognitionId(int recognitionId) {
         transactionResultRequest.setRecognitionId(recognitionId);
@@ -67,7 +67,7 @@ public class TransactionResultRequestBuilder {
     }
 
     /**
-     * Eku no(Electronic Journal)
+     * Eku no (Electronic Journal)
      */
     public TransactionResultRequestBuilder ekuNo(int ekuNo) {
         transactionResultRequest.setEkuNo(ekuNo);
@@ -83,7 +83,7 @@ public class TransactionResultRequestBuilder {
     }
 
     /**
-     * it should be  GGAAYYYYSSDD formated.
+     * It should be  GGAAYYYYSSDD formatted.
      */
     public TransactionResultRequestBuilder receiptDateTime(String receiptDateTime) {
         transactionResultRequest.setReceiptDateTime(receiptDateTime);
