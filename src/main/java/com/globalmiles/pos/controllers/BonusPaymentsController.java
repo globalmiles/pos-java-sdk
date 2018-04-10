@@ -42,21 +42,17 @@ public class BonusPaymentsController extends BaseController {
 
     /**
      * After getting customer info's and RecognitionID to start Payment with Miles Use this API.
-     * After calling this API successfully OTP code send to cutomer GSM number. This OTP must be used with Complete API in order to complete sale.
-     * @param    accept    Required parameter: It advertises which content type is able to understand.
-     * @param    contentType    Required parameter: It tells the client what the content type of the returned.
-     * @param    authorization    Required parameter: It includes OAuth2 token.
+     * After calling this API successfully OTP code send to customer GSM number. This OTP must be used with Complete API in order to complete sale.
+     * You can try this API with configuring client parameters in Console Tab below. Test OAuthClientId is 552698b91cae424b9b3ddee14eea6faf564f1b5fb7764854b73b2763e0e68c66
+     * and OAuthClientSecret is d0a8b00a3d754ea5a013465bcc23f6efa89e9dfb080a4f4eb460e3306653d92b
      * @param    body    Required parameter: The body of the request.
      * @return    Returns the StartBonusPaymentResponse response from the API call 
      */
     public StartBonusPaymentResponse createStartBonusPayment(
-                final String accept,
-                final String contentType,
-                final String authorization,
                 final StartBonusPaymentRequest body
     ) throws Throwable {
         APICallBackCatcher<StartBonusPaymentResponse> callback = new APICallBackCatcher<StartBonusPaymentResponse>();
-        createStartBonusPaymentAsync(accept, contentType, authorization, body, callback);
+        createStartBonusPaymentAsync(body, callback);
         if(!callback.isSuccess())
             throw callback.getError();
         return callback.getResult();
@@ -64,17 +60,13 @@ public class BonusPaymentsController extends BaseController {
 
     /**
      * After getting customer info's and RecognitionID to start Payment with Miles Use this API.
-     * After calling this API successfully OTP code send to cutomer GSM number. This OTP must be used with Complete API in order to complete sale.
-     * @param    accept    Required parameter: It advertises which content type is able to understand.
-     * @param    contentType    Required parameter: It tells the client what the content type of the returned.
-     * @param    authorization    Required parameter: It includes OAuth2 token.
+     * After calling this API successfully OTP code send to customer GSM number. This OTP must be used with Complete API in order to complete sale.
+     * You can try this API with configuring client parameters in Console Tab below. Test OAuthClientId is 552698b91cae424b9b3ddee14eea6faf564f1b5fb7764854b73b2763e0e68c66
+     * and OAuthClientSecret is d0a8b00a3d754ea5a013465bcc23f6efa89e9dfb080a4f4eb460e3306653d92b
      * @param    body    Required parameter: The body of the request.
      * @return    Returns the void response from the API call 
      */
     public void createStartBonusPaymentAsync(
-                final String accept,
-                final String contentType,
-                final String authorization,
                 final StartBonusPaymentRequest body,
                 final APICallBack<StartBonusPaymentResponse> callBack
     ) {
@@ -98,13 +90,12 @@ public class BonusPaymentsController extends BaseController {
                 }
                 //load all headers for the outgoing API request
                 Map<String, String> _headers = new HashMap<String, String>() {
-                    private static final long serialVersionUID = 5661277505492723827L;
+                    private static final long serialVersionUID = 5072504450089500637L;
                     {
-                        put( "Accept", accept );
-                        put( "Content-Type", contentType );
-                        put( "Authorization", authorization );
                         put( "Authorization", authorizationHeader);
                         put( "user-agent", "APIMATIC 2.0" );
+                        put( "accept", "application/json" );
+                        put( "content-type", "application/json" );
                     }
                 };
 
@@ -174,38 +165,30 @@ public class BonusPaymentsController extends BaseController {
     }
 
     /**
-     * In order to finalise payment with Miles use this API.Use the OTP number  which is send to user GSM on the Request body.
-     * @param    accept    Required parameter: It advertises which content type is able to understand.
-     * @param    contentType    Required parameter: It tells the client what the content type of the returned.
-     * @param    authorization    Required parameter: It includes OAuth2 token.
+     * In order to finalize payment with Miles use this API. Use the OTP number  which is send to user GSM on the Request body.
+     * You can try this API with configuring client parameters in Console Tab below. Test OAuthClientId is 552698b91cae424b9b3ddee14eea6faf564f1b5fb7764854b73b2763e0e68c66
+     * and OAuthClientSecret is d0a8b00a3d754ea5a013465bcc23f6efa89e9dfb080a4f4eb460e3306653d92b
      * @param    body    Required parameter: The body of the request.
      * @return    Returns the CompleteBonusPaymentResponse response from the API call 
      */
     public CompleteBonusPaymentResponse createCompleteBonusPayment(
-                final String accept,
-                final String contentType,
-                final String authorization,
                 final CompleteBonusPaymentRequest body
     ) throws Throwable {
         APICallBackCatcher<CompleteBonusPaymentResponse> callback = new APICallBackCatcher<CompleteBonusPaymentResponse>();
-        createCompleteBonusPaymentAsync(accept, contentType, authorization, body, callback);
+        createCompleteBonusPaymentAsync(body, callback);
         if(!callback.isSuccess())
             throw callback.getError();
         return callback.getResult();
     }
 
     /**
-     * In order to finalise payment with Miles use this API.Use the OTP number  which is send to user GSM on the Request body.
-     * @param    accept    Required parameter: It advertises which content type is able to understand.
-     * @param    contentType    Required parameter: It tells the client what the content type of the returned.
-     * @param    authorization    Required parameter: It includes OAuth2 token.
+     * In order to finalize payment with Miles use this API. Use the OTP number  which is send to user GSM on the Request body.
+     * You can try this API with configuring client parameters in Console Tab below. Test OAuthClientId is 552698b91cae424b9b3ddee14eea6faf564f1b5fb7764854b73b2763e0e68c66
+     * and OAuthClientSecret is d0a8b00a3d754ea5a013465bcc23f6efa89e9dfb080a4f4eb460e3306653d92b
      * @param    body    Required parameter: The body of the request.
      * @return    Returns the void response from the API call 
      */
     public void createCompleteBonusPaymentAsync(
-                final String accept,
-                final String contentType,
-                final String authorization,
                 final CompleteBonusPaymentRequest body,
                 final APICallBack<CompleteBonusPaymentResponse> callBack
     ) {
@@ -229,13 +212,12 @@ public class BonusPaymentsController extends BaseController {
                 }
                 //load all headers for the outgoing API request
                 Map<String, String> _headers = new HashMap<String, String>() {
-                    private static final long serialVersionUID = 5424483818106945068L;
+                    private static final long serialVersionUID = 4614498745713365785L;
                     {
-                        put( "Accept", accept );
-                        put( "Content-Type", contentType );
-                        put( "Authorization", authorization );
                         put( "Authorization", authorizationHeader);
                         put( "user-agent", "APIMATIC 2.0" );
+                        put( "accept", "application/json" );
+                        put( "content-type", "application/json" );
                     }
                 };
 
@@ -306,20 +288,16 @@ public class BonusPaymentsController extends BaseController {
 
     /**
      * In order to cancel payment with miles you can use this API. It allows to cancel payment only related GSM and terminal ID numbers.
-     * @param    accept    Required parameter: It advertises which content type is able to understand.
-     * @param    contentType    Required parameter: It tells the client what the content type of the returned.
-     * @param    authorization    Required parameter: It includes OAuth2 token.
+     * You can try this API with configuring client parameters in Console Tab below. Test OAuthClientId is 552698b91cae424b9b3ddee14eea6faf564f1b5fb7764854b73b2763e0e68c66
+     * and OAuthClientSecret is d0a8b00a3d754ea5a013465bcc23f6efa89e9dfb080a4f4eb460e3306653d92b
      * @param    body    Required parameter: The body of the request.
      * @return    Returns the CancelBonusPaymentResponse response from the API call 
      */
     public CancelBonusPaymentResponse createCancelBonusPayment(
-                final String accept,
-                final String contentType,
-                final String authorization,
                 final CancelBonusPaymentRequest body
     ) throws Throwable {
         APICallBackCatcher<CancelBonusPaymentResponse> callback = new APICallBackCatcher<CancelBonusPaymentResponse>();
-        createCancelBonusPaymentAsync(accept, contentType, authorization, body, callback);
+        createCancelBonusPaymentAsync(body, callback);
         if(!callback.isSuccess())
             throw callback.getError();
         return callback.getResult();
@@ -327,16 +305,12 @@ public class BonusPaymentsController extends BaseController {
 
     /**
      * In order to cancel payment with miles you can use this API. It allows to cancel payment only related GSM and terminal ID numbers.
-     * @param    accept    Required parameter: It advertises which content type is able to understand.
-     * @param    contentType    Required parameter: It tells the client what the content type of the returned.
-     * @param    authorization    Required parameter: It includes OAuth2 token.
+     * You can try this API with configuring client parameters in Console Tab below. Test OAuthClientId is 552698b91cae424b9b3ddee14eea6faf564f1b5fb7764854b73b2763e0e68c66
+     * and OAuthClientSecret is d0a8b00a3d754ea5a013465bcc23f6efa89e9dfb080a4f4eb460e3306653d92b
      * @param    body    Required parameter: The body of the request.
      * @return    Returns the void response from the API call 
      */
     public void createCancelBonusPaymentAsync(
-                final String accept,
-                final String contentType,
-                final String authorization,
                 final CancelBonusPaymentRequest body,
                 final APICallBack<CancelBonusPaymentResponse> callBack
     ) {
@@ -360,13 +334,12 @@ public class BonusPaymentsController extends BaseController {
                 }
                 //load all headers for the outgoing API request
                 Map<String, String> _headers = new HashMap<String, String>() {
-                    private static final long serialVersionUID = 5494596136237963476L;
+                    private static final long serialVersionUID = 5588864567694018199L;
                     {
-                        put( "Accept", accept );
-                        put( "Content-Type", contentType );
-                        put( "Authorization", authorization );
                         put( "Authorization", authorizationHeader);
                         put( "user-agent", "APIMATIC 2.0" );
+                        put( "accept", "application/json" );
+                        put( "content-type", "application/json" );
                     }
                 };
 
@@ -437,20 +410,16 @@ public class BonusPaymentsController extends BaseController {
 
     /**
      * Before cancelling the payment with Miles this API is used to list the related sale.
-     * @param    accept    Required parameter: It advertises which content type is able to understand.
-     * @param    contentType    Required parameter: It tells the client what the content type of the returned.
-     * @param    authorization    Required parameter: It includes OAuth2 token.
+     * You can try this API with configuring client parameters in Console Tab below. Test OAuthClientId is 552698b91cae424b9b3ddee14eea6faf564f1b5fb7764854b73b2763e0e68c66
+     * and OAuthClientSecret is d0a8b00a3d754ea5a013465bcc23f6efa89e9dfb080a4f4eb460e3306653d92b
      * @param    body    Required parameter: The body of the request.
      * @return    Returns the GetBonusProvisionsResponse response from the API call 
      */
     public GetBonusProvisionsResponse createGetBonusProvisions(
-                final String accept,
-                final String contentType,
-                final String authorization,
                 final GetBonusProvisionsRequest body
     ) throws Throwable {
         APICallBackCatcher<GetBonusProvisionsResponse> callback = new APICallBackCatcher<GetBonusProvisionsResponse>();
-        createGetBonusProvisionsAsync(accept, contentType, authorization, body, callback);
+        createGetBonusProvisionsAsync(body, callback);
         if(!callback.isSuccess())
             throw callback.getError();
         return callback.getResult();
@@ -458,16 +427,12 @@ public class BonusPaymentsController extends BaseController {
 
     /**
      * Before cancelling the payment with Miles this API is used to list the related sale.
-     * @param    accept    Required parameter: It advertises which content type is able to understand.
-     * @param    contentType    Required parameter: It tells the client what the content type of the returned.
-     * @param    authorization    Required parameter: It includes OAuth2 token.
+     * You can try this API with configuring client parameters in Console Tab below. Test OAuthClientId is 552698b91cae424b9b3ddee14eea6faf564f1b5fb7764854b73b2763e0e68c66
+     * and OAuthClientSecret is d0a8b00a3d754ea5a013465bcc23f6efa89e9dfb080a4f4eb460e3306653d92b
      * @param    body    Required parameter: The body of the request.
      * @return    Returns the void response from the API call 
      */
     public void createGetBonusProvisionsAsync(
-                final String accept,
-                final String contentType,
-                final String authorization,
                 final GetBonusProvisionsRequest body,
                 final APICallBack<GetBonusProvisionsResponse> callBack
     ) {
@@ -491,13 +456,12 @@ public class BonusPaymentsController extends BaseController {
                 }
                 //load all headers for the outgoing API request
                 Map<String, String> _headers = new HashMap<String, String>() {
-                    private static final long serialVersionUID = 5503811095941657002L;
+                    private static final long serialVersionUID = 5557822295852166947L;
                     {
-                        put( "Accept", accept );
-                        put( "Content-Type", contentType );
-                        put( "Authorization", authorization );
                         put( "Authorization", authorizationHeader);
                         put( "user-agent", "APIMATIC 2.0" );
+                        put( "accept", "application/json" );
+                        put( "content-type", "application/json" );
                     }
                 };
 

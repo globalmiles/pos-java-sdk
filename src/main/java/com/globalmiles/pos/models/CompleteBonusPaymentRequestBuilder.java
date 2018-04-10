@@ -27,18 +27,18 @@ public class CompleteBonusPaymentRequestBuilder {
     }
 
     /**
-     * One time password that sends to customer phone
-     */
-    public CompleteBonusPaymentRequestBuilder oTP(String oTP) {
-        completeBonusPaymentRequest.setOTP(oTP);
-        return this;
-    }
-
-    /**
      * Terminal code.
      */
     public CompleteBonusPaymentRequestBuilder oKCSicilNo(String oKCSicilNo) {
         completeBonusPaymentRequest.setOKCSicilNo(oKCSicilNo);
+        return this;
+    }
+
+    /**
+     * One time password that sends to customer phone
+     */
+    public CompleteBonusPaymentRequestBuilder oTP(String oTP) {
+        completeBonusPaymentRequest.setOTP(oTP);
         return this;
     }
     /**

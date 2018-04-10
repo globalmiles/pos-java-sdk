@@ -27,10 +27,10 @@ public class StartBonusPaymentRequestBuilder {
     }
 
     /**
-     * Total Bonus(Mile) Amount  that has been used in the shopping  ex:0.85 TL == 85
+     * Used Bonus(Mile) Amount that has been used in the shopping  ex:0.85 TL == 85
      */
-    public StartBonusPaymentRequestBuilder totalBonusAmount(int totalBonusAmount) {
-        startBonusPaymentRequest.setTotalBonusAmount(totalBonusAmount);
+    public StartBonusPaymentRequestBuilder usedBonusAmount(int usedBonusAmount) {
+        startBonusPaymentRequest.setUsedBonusAmount(usedBonusAmount);
         return this;
     }
 

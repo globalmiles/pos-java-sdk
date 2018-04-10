@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class BonusProvision 
         implements java.io.Serializable {
-    private static final long serialVersionUID = 5694470790632022778L;
+    private static final long serialVersionUID = 4929912214655981602L;
     private String bonusPaymentProvisionId;
     private int usedBonusAmount;
     private String dateTime;

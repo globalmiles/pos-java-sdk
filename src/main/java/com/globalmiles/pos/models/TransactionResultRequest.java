@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class TransactionResultRequest 
         implements java.io.Serializable {
-    private static final long serialVersionUID = 5756308342446632315L;
+    private static final long serialVersionUID = 5061243364764263772L;
     private int totalReceiptAmount;
     private int totalVATAmount;
     private String oKCSicilNo;
@@ -105,7 +105,7 @@ public class TransactionResultRequest
     }
  
     /** GETTER
-     * session based İdentification Number .
+     * Session based Identification Number .
      */
     @JsonGetter("recognitionId")
     public int getRecognitionId ( ) { 
@@ -113,7 +113,7 @@ public class TransactionResultRequest
     }
     
     /** SETTER
-     * session based İdentification Number .
+     * Session based Identification Number .
      */
     @JsonSetter("recognitionId")
     public void setRecognitionId (int value) { 
@@ -121,7 +121,7 @@ public class TransactionResultRequest
     }
  
     /** GETTER
-     * Eku no(Electronic Journal)
+     * Eku no (Electronic Journal)
      */
     @JsonGetter("EkuNo")
     public int getEkuNo ( ) { 
@@ -129,7 +129,7 @@ public class TransactionResultRequest
     }
     
     /** SETTER
-     * Eku no(Electronic Journal)
+     * Eku no (Electronic Journal)
      */
     @JsonSetter("EkuNo")
     public void setEkuNo (int value) { 
@@ -153,7 +153,7 @@ public class TransactionResultRequest
     }
  
     /** GETTER
-     * it should be  GGAAYYYYSSDD formated.
+     * It should be  GGAAYYYYSSDD formatted.
      */
     @JsonGetter("ReceiptDateTime")
     public String getReceiptDateTime ( ) { 
@@ -161,7 +161,7 @@ public class TransactionResultRequest
     }
     
     /** SETTER
-     * it should be  GGAAYYYYSSDD formated.
+     * It should be  GGAAYYYYSSDD formatted.
      */
     @JsonSetter("ReceiptDateTime")
     public void setReceiptDateTime (String value) { 

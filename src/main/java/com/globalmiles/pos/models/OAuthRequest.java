@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class OAuthRequest 
         implements java.io.Serializable {
-    private static final long serialVersionUID = 5207275510358206610L;
+    private static final long serialVersionUID = 5581576548082352184L;
     private String clientId;
     private String clientSecret;
     private String grantType;
