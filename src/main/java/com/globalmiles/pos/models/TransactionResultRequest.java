@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class TransactionResultRequest 
         implements java.io.Serializable {
-    private static final long serialVersionUID = 5061243364764263772L;
+    private static final long serialVersionUID = 5463405382873830707L;
     private int totalReceiptAmount;
     private int totalVATAmount;
     private String oKCSicilNo;

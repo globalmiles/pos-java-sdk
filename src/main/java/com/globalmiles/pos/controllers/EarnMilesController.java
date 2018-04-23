@@ -8,6 +8,7 @@ package com.globalmiles.pos.controllers;
 import java.io.*;
 import java.util.*;
 import java.util.concurrent.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import com.globalmiles.pos.*;
@@ -21,55 +22,51 @@ import com.globalmiles.pos.http.response.HttpStringResponse;
 import com.globalmiles.pos.http.client.APICallBack;
 import com.globalmiles.pos.controllers.syncwrapper.APICallBackCatcher;
 
-public class OAuthAuthorizationController extends BaseController {    
+public class EarnMilesController extends BaseController {    
     //private static variables for the singleton pattern
     private static Object syncObject = new Object();
-    private static OAuthAuthorizationController instance = null;
+    private static EarnMilesController instance = null;
 
     /**
      * Singleton pattern implementation 
-     * @return The singleton instance of the OAuthAuthorizationController class 
+     * @return The singleton instance of the EarnMilesController class 
      */
-    public static OAuthAuthorizationController getInstance() {
+    public static EarnMilesController getInstance() {
         synchronized (syncObject) {
             if (null == instance) {
-                instance = new OAuthAuthorizationController();
+                instance = new EarnMilesController();
             }
         }
         return instance;
     }
 
     /**
-     * Create a new OAuth 2 token.
-     * @param    authorization    Required parameter: Authorization header in Basic auth format
-     * @param    scope    Optional parameter: Requested scopes as a space-delimited list.
-     * @param    fieldParameters    Additional optional form parameters are supported by this endpoint
-     * @return    Returns the OAuthToken response from the API call 
+     * After getting customer info by Get Customer Info endpoint and finished the shopping procedure in POS terminal, use this endpoint to complete transaction.
+     * You can try this API with configuring client parameters in Console Tab below. Test OAuthClientId is 552698b91cae424b9b3ddee14eea6faf564f1b5fb7764854b73b2763e0e68c66
+     * and OAuthClientSecret is d0a8b00a3d754ea5a013465bcc23f6efa89e9dfb080a4f4eb460e3306653d92b
+     * @param    body    Required parameter: The body of the request.
+     * @return    Returns the TransactionResultResponse response from the API call 
      */
-    public OAuthToken createRequestToken(
-                final String authorization,
-                final String scope,
-                final Map<String, Object> fieldParameters
+    public TransactionResultResponse createTransactionResult(
+                final TransactionResultRequest body
     ) throws Throwable {
-        APICallBackCatcher<OAuthToken> callback = new APICallBackCatcher<OAuthToken>();
-        createRequestTokenAsync(authorization, scope, fieldParameters, callback);
+        APICallBackCatcher<TransactionResultResponse> callback = new APICallBackCatcher<TransactionResultResponse>();
+        createTransactionResultAsync(body, callback);
         if(!callback.isSuccess())
             throw callback.getError();
         return callback.getResult();
     }
 
     /**
-     * Create a new OAuth 2 token.
-     * @param    authorization    Required parameter: Authorization header in Basic auth format
-     * @param    scope    Optional parameter: Requested scopes as a space-delimited list.
-     * @param    fieldParameters    Additional optional form parameters are supported by this endpoint
+     * After getting customer info by Get Customer Info endpoint and finished the shopping procedure in POS terminal, use this endpoint to complete transaction.
+     * You can try this API with configuring client parameters in Console Tab below. Test OAuthClientId is 552698b91cae424b9b3ddee14eea6faf564f1b5fb7764854b73b2763e0e68c66
+     * and OAuthClientSecret is d0a8b00a3d754ea5a013465bcc23f6efa89e9dfb080a4f4eb460e3306653d92b
+     * @param    body    Required parameter: The body of the request.
      * @return    Returns the void response from the API call 
      */
-    public void createRequestTokenAsync(
-                final String authorization,
-                final String scope,
-                final Map<String, Object> fieldParameters,
-                final APICallBack<OAuthToken> callBack
+    public void createTransactionResultAsync(
+                final TransactionResultRequest body,
+                final APICallBack<TransactionResultResponse> callBack
     ) {
         Runnable _responseTask = new Runnable() {
             public void run() {
@@ -78,33 +75,37 @@ public class OAuthAuthorizationController extends BaseController {
 
                 //prepare query string for API call
                 StringBuilder _queryBuilder = new StringBuilder(_baseUri);
-                _queryBuilder.append("/oauth/token");
+                _queryBuilder.append("/v1/pos/TransactionResult");
                 //validate and preprocess url
                 String _queryUrl = APIHelper.cleanUrl(_queryBuilder);
 
+                final String authorizationHeader;
+                try {
+                    authorizationHeader = OAuthManager.getInstance().getAuthorizationHeader();
+                } catch (Throwable e) {
+                   callBack.onFailure(null, e);
+                   return;
+                }
                 //load all headers for the outgoing API request
                 Map<String, String> _headers = new HashMap<String, String>() {
-                    private static final long serialVersionUID = 5239716960831336174L;
+                    private static final long serialVersionUID = 4634803320116204543L;
                     {
-                        put( "Authorization", authorization );
+                        put( "Authorization", authorizationHeader);
                         put( "user-agent", "APIMATIC 2.0" );
                         put( "accept", "application/json" );
+                        put( "content-type", "application/json" );
                     }
                 };
-
-                //load all fields for the outgoing API request
-                Map<String, Object> _parameters = new HashMap<String, Object>() {
-                    private static final long serialVersionUID = 5551145872935693782L;
-                    {
-                        put( "grant_type", "client_credentials" );
-                        put( "scope", scope );
-                    }
-                };
-                _parameters.putAll( fieldParameters );
 
                 //prepare and invoke the API call request to fetch the response
-                final HttpRequest _request = getClientInstance().post(_queryUrl, _headers, APIHelper.prepareFormFields(_parameters));
-
+                HttpRequest _request;
+                try {
+                    _request = getClientInstance().postBody(_queryUrl, _headers, APIHelper.serialize(body));
+                } catch (JsonProcessingException jsonProcessingException) {
+                    //let the caller know of the error
+                    callBack.onFailure(null, jsonProcessingException);
+                    return;
+                }
                 //invoke the callback before request if its not null
                 if (getHttpCallBack() != null)
                 {
@@ -122,21 +123,13 @@ public class OAuthAuthorizationController extends BaseController {
                                 getHttpCallBack().OnAfterResponse(_context);
                             }
 
-                            //Error handling using HTTP status codes
-                            int _responseCode = _response.getStatusCode();
-                            if (_responseCode == 400)
-                                throw new OAuthProviderException("OAuth 2 provider returned an error.", _context);
-
-                            if (_responseCode == 401)
-                                throw new OAuthProviderException("OAuth 2 provider says client authentication failed.", _context);
-
                             //handle errors defined at the API level
                             validateResponse(_response, _context);
 
                             //extract result from the http response
                             String _responseBody = ((HttpStringResponse)_response).getBody();
-                            OAuthToken _result = APIHelper.deserialize(_responseBody,
-                                                        new TypeReference<OAuthToken>(){});
+                            TransactionResultResponse _result = APIHelper.deserialize(_responseBody,
+                                                        new TypeReference<TransactionResultResponse>(){});
 
                             //let the caller know of the success
                             callBack.onSuccess(_context, _result);

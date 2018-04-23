@@ -9,11 +9,13 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
-public class TransactionResultResponse 
+public class StartMilePaymentResponse 
         implements java.io.Serializable {
-    private static final long serialVersionUID = 4820710579996427740L;
+    private static final long serialVersionUID = 5543306627490420469L;
     private int returnCode;
     private String returnDesc;
+    private String bonusPaymentProvisionId;
+    private boolean oTPNeeded;
     /** GETTER
      * 0  Success, 1 and bigger than 1 unsuccessful
      */
@@ -44,6 +46,38 @@ public class TransactionResultResponse
     @JsonSetter("returnDesc")
     public void setReturnDesc (String value) { 
         this.returnDesc = value;
+    }
+ 
+    /** GETTER
+     * Provision ID for the payment
+     */
+    @JsonGetter("bonusPaymentProvisionId")
+    public String getBonusPaymentProvisionId ( ) { 
+        return this.bonusPaymentProvisionId;
+    }
+    
+    /** SETTER
+     * Provision ID for the payment
+     */
+    @JsonSetter("bonusPaymentProvisionId")
+    public void setBonusPaymentProvisionId (String value) { 
+        this.bonusPaymentProvisionId = value;
+    }
+ 
+    /** GETTER
+     * Is a one-time password required?
+     */
+    @JsonGetter("OTPNeeded")
+    public boolean getOTPNeeded ( ) { 
+        return this.oTPNeeded;
+    }
+    
+    /** SETTER
+     * Is a one-time password required?
+     */
+    @JsonSetter("OTPNeeded")
+    public void setOTPNeeded (boolean value) { 
+        this.oTPNeeded = value;
     }
  
 }

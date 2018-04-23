@@ -77,7 +77,7 @@ public class AuthenticationController extends BaseController {
 
                 //load all headers for the outgoing API request
                 Map<String, String> _headers = new HashMap<String, String>() {
-                    private static final long serialVersionUID = 5477886652250500966L;
+                    private static final long serialVersionUID = 4870480596203458596L;
                     {
                         put( "user-agent", "APIMATIC 2.0" );
                         put( "accept", "application/json" );

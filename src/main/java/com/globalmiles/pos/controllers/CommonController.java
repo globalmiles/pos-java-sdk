@@ -41,7 +41,7 @@ public class CommonController extends BaseController {
     }
 
     /**
-     * This API will help you to retrieve customer's mil quantity and unique identifier value.Unique identifier value must be used by Transaction Result API in order to complete shopping.
+     * This API will help you to get customer's mil quantity and unique identifier value. Unique identifier value must be used by Transaction Result API in order to complete shopping.
      * You can try this API with configuring client parameters in Console Tab below. Test OAuthClientId is 552698b91cae424b9b3ddee14eea6faf564f1b5fb7764854b73b2763e0e68c66
      * and OAuthClientSecret is d0a8b00a3d754ea5a013465bcc23f6efa89e9dfb080a4f4eb460e3306653d92b
      * @param    body    Required parameter: The body of the request.
@@ -58,7 +58,7 @@ public class CommonController extends BaseController {
     }
 
     /**
-     * This API will help you to retrieve customer's mil quantity and unique identifier value.Unique identifier value must be used by Transaction Result API in order to complete shopping.
+     * This API will help you to get customer's mil quantity and unique identifier value. Unique identifier value must be used by Transaction Result API in order to complete shopping.
      * You can try this API with configuring client parameters in Console Tab below. Test OAuthClientId is 552698b91cae424b9b3ddee14eea6faf564f1b5fb7764854b73b2763e0e68c66
      * and OAuthClientSecret is d0a8b00a3d754ea5a013465bcc23f6efa89e9dfb080a4f4eb460e3306653d92b
      * @param    body    Required parameter: The body of the request.
@@ -88,7 +88,7 @@ public class CommonController extends BaseController {
                 }
                 //load all headers for the outgoing API request
                 Map<String, String> _headers = new HashMap<String, String>() {
-                    private static final long serialVersionUID = 5290894086782531263L;
+                    private static final long serialVersionUID = 5514508857703687443L;
                     {
                         put( "Authorization", authorizationHeader);
                         put( "user-agent", "APIMATIC 2.0" );

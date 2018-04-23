@@ -35,7 +35,7 @@ public class GetCustomerInfoRequestBuilder {
     }
 
     /**
-     * Total receipt amount.  ex:12.34 TL == 1234
+     * Total receipt amount.  ex:12.34 USD == 1234
      */
     public GetCustomerInfoRequestBuilder totalAmount(int totalAmount) {
         getCustomerInfoRequest.setTotalAmount(totalAmount);
@@ -43,7 +43,7 @@ public class GetCustomerInfoRequestBuilder {
     }
 
     /**
-     * Total Tax Value. EX:1.34 TL == 134
+     * Total Tax Value. EX:1.34 USD == 134
      */
     public GetCustomerInfoRequestBuilder totalVATAmount(int totalVATAmount) {
         getCustomerInfoRequest.setTotalVATAmount(totalVATAmount);

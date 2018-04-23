@@ -9,9 +9,9 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
-public class TransactionResultResponse 
+public class CompleteMilePaymentResponse 
         implements java.io.Serializable {
-    private static final long serialVersionUID = 4820710579996427740L;
+    private static final long serialVersionUID = 4718248025202780346L;
     private int returnCode;
     private String returnDesc;
     /** GETTER

@@ -14,7 +14,7 @@ import com.globalmiles.pos.models.*;
 public class OAuthProviderException 
         extends APIException
         implements java.io.Serializable {
-    private static final long serialVersionUID = 4851555830785598793L;
+    private static final long serialVersionUID = 5114640756697058961L;
     private OAuthProviderErrorEnum error;
     private String errorDescription;
     private String errorUri;

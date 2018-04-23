@@ -34,7 +34,7 @@ public class GetBonusProvisionsResponseBuilder {
         return this;
     }
 
-    public GetBonusProvisionsResponseBuilder bonusProvisions(List<BonusProvision> bonusProvisions) {
+    public GetBonusProvisionsResponseBuilder bonusProvisions(List<MileProvision> bonusProvisions) {
         getBonusProvisionsResponse.setBonusProvisions(bonusProvisions);
         return this;
     }

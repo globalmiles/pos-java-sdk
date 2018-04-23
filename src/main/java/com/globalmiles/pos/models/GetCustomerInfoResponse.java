@@ -11,14 +11,14 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class GetCustomerInfoResponse 
         implements java.io.Serializable {
-    private static final long serialVersionUID = 4857730056096471512L;
+    private static final long serialVersionUID = 5671392532134245639L;
     private int returnCode;
     private String returnDesc;
     private int recognitionId;
     private int availablePoint;
     private int loyaltyDiscountedPrice;
     /** GETTER
-     * 0 ise başarılı, 1 veya daha büyük ise başarısız
+     * 0  Success, 1 and bigger than 1 unsuccessful
      */
     @JsonGetter("returnCode")
     public int getReturnCode ( ) { 
@@ -26,7 +26,7 @@ public class GetCustomerInfoResponse
     }
     
     /** SETTER
-     * 0 ise başarılı, 1 veya daha büyük ise başarısız
+     * 0  Success, 1 and bigger than 1 unsuccessful
      */
     @JsonSetter("returnCode")
     public void setReturnCode (int value) { 
@@ -34,7 +34,7 @@ public class GetCustomerInfoResponse
     }
  
     /** GETTER
-     * Başarılı ise boş, eğer hata varsa; hata mesajını içerir.
+     * if success return is empty. if unsuccessful it returns error message
      */
     @JsonGetter("returnDesc")
     public String getReturnDesc ( ) { 
@@ -42,7 +42,7 @@ public class GetCustomerInfoResponse
     }
     
     /** SETTER
-     * Başarılı ise boş, eğer hata varsa; hata mesajını içerir.
+     * if success return is empty. if unsuccessful it returns error message
      */
     @JsonSetter("returnDesc")
     public void setReturnDesc (String value) { 
@@ -50,7 +50,7 @@ public class GetCustomerInfoResponse
     }
  
     /** GETTER
-     * Kullanıcının GlobalMiles sistemindeki unique identifier değeri
+     * Session based user identification number
      */
     @JsonGetter("recognitionId")
     public int getRecognitionId ( ) { 
@@ -58,7 +58,7 @@ public class GetCustomerInfoResponse
     }
     
     /** SETTER
-     * Kullanıcının GlobalMiles sistemindeki unique identifier değeri
+     * Session based user identification number
      */
     @JsonSetter("recognitionId")
     public void setRecognitionId (int value) { 
@@ -66,7 +66,7 @@ public class GetCustomerInfoResponse
     }
  
     /** GETTER
-     * Müşterinin bu işlemde kullanabileceği puanın TL karşılığıdır. Son iki karakter kuruşları temsil eder. Örneğin: 12.56 TL == 1256
+     * The available points that the customer can use in this transaction is in USD which is calculated from customer's current miles. EX: 12.56 USD == 1256
      */
     @JsonGetter("availablePoint")
     public int getAvailablePoint ( ) { 
@@ -74,7 +74,7 @@ public class GetCustomerInfoResponse
     }
     
     /** SETTER
-     * Müşterinin bu işlemde kullanabileceği puanın TL karşılığıdır. Son iki karakter kuruşları temsil eder. Örneğin: 12.56 TL == 1256
+     * The available points that the customer can use in this transaction is in USD which is calculated from customer's current miles. EX: 12.56 USD == 1256
      */
     @JsonSetter("availablePoint")
     public void setAvailablePoint (int value) { 
@@ -82,7 +82,7 @@ public class GetCustomerInfoResponse
     }
  
     /** GETTER
-     * Sadakat indirimi. Son iki karakter kuruşları temsil eder. Örneğin: 90.50 TL == 9050
+     * Loyalty discounted price ex: 90.50 USD == 9050
      */
     @JsonGetter("loyaltyDiscountedPrice")
     public int getLoyaltyDiscountedPrice ( ) { 
@@ -90,7 +90,7 @@ public class GetCustomerInfoResponse
     }
     
     /** SETTER
-     * Sadakat indirimi. Son iki karakter kuruşları temsil eder. Örneğin: 90.50 TL == 9050
+     * Loyalty discounted price ex: 90.50 USD == 9050
      */
     @JsonSetter("loyaltyDiscountedPrice")
     public void setLoyaltyDiscountedPrice (int value) { 

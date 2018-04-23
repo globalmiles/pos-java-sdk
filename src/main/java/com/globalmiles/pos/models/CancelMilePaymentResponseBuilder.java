@@ -7,36 +7,36 @@ package com.globalmiles.pos.models;
 
 import java.util.*;
 
-public class TransactionResultResponseBuilder {
+public class CancelMilePaymentResponseBuilder {
     //the instance to build
-    private TransactionResultResponse transactionResultResponse;
+    private CancelMilePaymentResponse cancelMilePaymentResponse;
 
     /**
      * Default constructor to initialize the instance
      */
-    public TransactionResultResponseBuilder() {
-        transactionResultResponse = new TransactionResultResponse();
+    public CancelMilePaymentResponseBuilder() {
+        cancelMilePaymentResponse = new CancelMilePaymentResponse();
     }
 
     /**
      * 0  Success, 1 and bigger than 1 unsuccessful
      */
-    public TransactionResultResponseBuilder returnCode(int returnCode) {
-        transactionResultResponse.setReturnCode(returnCode);
+    public CancelMilePaymentResponseBuilder returnCode(int returnCode) {
+        cancelMilePaymentResponse.setReturnCode(returnCode);
         return this;
     }
 
     /**
      * if success return is empty. if unsuccessful it returns error message
      */
-    public TransactionResultResponseBuilder returnDesc(String returnDesc) {
-        transactionResultResponse.setReturnDesc(returnDesc);
+    public CancelMilePaymentResponseBuilder returnDesc(String returnDesc) {
+        cancelMilePaymentResponse.setReturnDesc(returnDesc);
         return this;
     }
     /**
      * Build the instance with the given values
      */
-    public TransactionResultResponse build() {
-        return transactionResultResponse;
+    public CancelMilePaymentResponse build() {
+        return cancelMilePaymentResponse;
     }
 }
