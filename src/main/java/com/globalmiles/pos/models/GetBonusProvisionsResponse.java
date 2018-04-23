@@ -11,10 +11,10 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class GetBonusProvisionsResponse 
         implements java.io.Serializable {
-    private static final long serialVersionUID = 5754371961984594850L;
+    private static final long serialVersionUID = 5160313469560252945L;
     private int returnCode;
     private String returnDesc;
-    private List<BonusProvision> bonusProvisions;
+    private List<MileProvision> bonusProvisions;
     /** GETTER
      * 0  Success, 1 and bigger than 1 unsuccessful
      */
@@ -51,7 +51,7 @@ public class GetBonusProvisionsResponse
      * TODO: Write general description for this method
      */
     @JsonGetter("bonusProvisions")
-    public List<BonusProvision> getBonusProvisions ( ) { 
+    public List<MileProvision> getBonusProvisions ( ) { 
         return this.bonusProvisions;
     }
     
@@ -59,7 +59,7 @@ public class GetBonusProvisionsResponse
      * TODO: Write general description for this method
      */
     @JsonSetter("bonusProvisions")
-    public void setBonusProvisions (List<BonusProvision> value) { 
+    public void setBonusProvisions (List<MileProvision> value) { 
         this.bonusProvisions = value;
     }
  

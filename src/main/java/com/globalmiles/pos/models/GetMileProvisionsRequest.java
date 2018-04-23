@@ -9,13 +9,11 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
-public class GetCustomerInfoRequest 
+public class GetMileProvisionsRequest 
         implements java.io.Serializable {
-    private static final long serialVersionUID = 5477587551096230260L;
+    private static final long serialVersionUID = 5564499883750324383L;
     private String readCode;
-    private int readCodeType;
-    private int totalAmount;
-    private int totalVATAmount;
+    private String readCodeType;
     private String oKCSicilNo;
     /** GETTER
      * Customer Identification Method ; GSM NO, Customer Unique ID or CODE
@@ -37,7 +35,7 @@ public class GetCustomerInfoRequest
      * 1: GSM NO, 2: Customer unique identifier, 3: CODE
      */
     @JsonGetter("readCodeType")
-    public int getReadCodeType ( ) { 
+    public String getReadCodeType ( ) { 
         return this.readCodeType;
     }
     
@@ -45,40 +43,8 @@ public class GetCustomerInfoRequest
      * 1: GSM NO, 2: Customer unique identifier, 3: CODE
      */
     @JsonSetter("readCodeType")
-    public void setReadCodeType (int value) { 
+    public void setReadCodeType (String value) { 
         this.readCodeType = value;
-    }
- 
-    /** GETTER
-     * Total receipt amount.  ex:12.34 USD == 1234
-     */
-    @JsonGetter("totalAmount")
-    public int getTotalAmount ( ) { 
-        return this.totalAmount;
-    }
-    
-    /** SETTER
-     * Total receipt amount.  ex:12.34 USD == 1234
-     */
-    @JsonSetter("totalAmount")
-    public void setTotalAmount (int value) { 
-        this.totalAmount = value;
-    }
- 
-    /** GETTER
-     * Total Tax Value. EX:1.34 USD == 134
-     */
-    @JsonGetter("totalVATAmount")
-    public int getTotalVATAmount ( ) { 
-        return this.totalVATAmount;
-    }
-    
-    /** SETTER
-     * Total Tax Value. EX:1.34 USD == 134
-     */
-    @JsonSetter("totalVATAmount")
-    public void setTotalVATAmount (int value) { 
-        this.totalVATAmount = value;
     }
  
     /** GETTER

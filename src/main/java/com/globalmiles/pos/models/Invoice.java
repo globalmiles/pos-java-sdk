@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class Invoice 
         implements java.io.Serializable {
-    private static final long serialVersionUID = 4944918984618125105L;
+    private static final long serialVersionUID = 4812531083109991467L;
     private String invoiceType;
     private String invoiceNo;
     private String invoiceDate;
