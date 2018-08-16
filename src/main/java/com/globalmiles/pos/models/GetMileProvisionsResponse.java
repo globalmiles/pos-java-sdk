@@ -9,58 +9,58 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
-public class GetBonusProvisionsResponse 
+public class GetMileProvisionsResponse 
         implements java.io.Serializable {
-    private static final long serialVersionUID = 5160313469560252945L;
+    private static final long serialVersionUID = -3628633937913838525L;
     private int returnCode;
     private String returnDesc;
-    private List<MileProvision> bonusProvisions;
+    private List<MileProvision> paymentProvisions;
     /** GETTER
-     * 0  Success, 1 and bigger than 1 unsuccessful
+     * 0  Success, 1 and bigger than 1 unsuccessful.
      */
-    @JsonGetter("returnCode")
+    @JsonGetter("return_code")
     public int getReturnCode ( ) { 
         return this.returnCode;
     }
     
     /** SETTER
-     * 0  Success, 1 and bigger than 1 unsuccessful
+     * 0  Success, 1 and bigger than 1 unsuccessful.
      */
-    @JsonSetter("returnCode")
+    @JsonSetter("return_code")
     public void setReturnCode (int value) { 
         this.returnCode = value;
     }
  
     /** GETTER
-     * if success return is empty. if unsuccessful it returns error message
+     * if success return is empty. if unsuccessful it returns error message.
      */
-    @JsonGetter("returnDesc")
+    @JsonGetter("return_desc")
     public String getReturnDesc ( ) { 
         return this.returnDesc;
     }
     
     /** SETTER
-     * if success return is empty. if unsuccessful it returns error message
+     * if success return is empty. if unsuccessful it returns error message.
      */
-    @JsonSetter("returnDesc")
+    @JsonSetter("return_desc")
     public void setReturnDesc (String value) { 
         this.returnDesc = value;
     }
  
     /** GETTER
-     * TODO: Write general description for this method
+     * A collection of the payments.
      */
-    @JsonGetter("bonusProvisions")
-    public List<MileProvision> getBonusProvisions ( ) { 
-        return this.bonusProvisions;
+    @JsonGetter("payment_provisions")
+    public List<MileProvision> getPaymentProvisions ( ) { 
+        return this.paymentProvisions;
     }
     
     /** SETTER
-     * TODO: Write general description for this method
+     * A collection of the payments.
      */
-    @JsonSetter("bonusProvisions")
-    public void setBonusProvisions (List<MileProvision> value) { 
-        this.bonusProvisions = value;
+    @JsonSetter("payment_provisions")
+    public void setPaymentProvisions (List<MileProvision> value) { 
+        this.paymentProvisions = value;
     }
  
 }

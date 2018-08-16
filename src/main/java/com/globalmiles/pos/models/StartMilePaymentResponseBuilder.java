@@ -19,7 +19,7 @@ public class StartMilePaymentResponseBuilder {
     }
 
     /**
-     * 0  Success, 1 and bigger than 1 unsuccessful
+     * 0  Success, 1 and bigger than 1 unsuccessful.
      */
     public StartMilePaymentResponseBuilder returnCode(int returnCode) {
         startMilePaymentResponse.setReturnCode(returnCode);
@@ -27,7 +27,7 @@ public class StartMilePaymentResponseBuilder {
     }
 
     /**
-     * if success return is empty. if unsuccessful it returns error message
+     * if success return is empty. if unsuccessful it returns error message.
      */
     public StartMilePaymentResponseBuilder returnDesc(String returnDesc) {
         startMilePaymentResponse.setReturnDesc(returnDesc);
@@ -35,18 +35,18 @@ public class StartMilePaymentResponseBuilder {
     }
 
     /**
-     * Provision ID for the payment
+     * Provision ID for the payment.
      */
-    public StartMilePaymentResponseBuilder bonusPaymentProvisionId(String bonusPaymentProvisionId) {
-        startMilePaymentResponse.setBonusPaymentProvisionId(bonusPaymentProvisionId);
+    public StartMilePaymentResponseBuilder milesPaymentProvisionId(int milesPaymentProvisionId) {
+        startMilePaymentResponse.setMilesPaymentProvisionId(milesPaymentProvisionId);
         return this;
     }
 
     /**
      * Is a one-time password required?
      */
-    public StartMilePaymentResponseBuilder oTPNeeded(boolean oTPNeeded) {
-        startMilePaymentResponse.setOTPNeeded(oTPNeeded);
+    public StartMilePaymentResponseBuilder otpNeeded(boolean otpNeeded) {
+        startMilePaymentResponse.setOtpNeeded(otpNeeded);
         return this;
     }
     /**

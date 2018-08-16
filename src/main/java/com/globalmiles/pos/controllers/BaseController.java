@@ -9,7 +9,7 @@ import com.globalmiles.pos.exceptions.*;
 import com.globalmiles.pos.http.client.HttpClient;
 import com.globalmiles.pos.http.client.HttpContext;
 import com.globalmiles.pos.http.client.HttpCallBack;
-import com.globalmiles.pos.http.client.UnirestClient;
+import com.globalmiles.pos.http.client.OkClient;
 import com.globalmiles.pos.http.response.HttpResponse;
 
 public abstract class BaseController {
@@ -47,7 +47,7 @@ public abstract class BaseController {
     public static HttpClient getClientInstance() {
         synchronized (syncObject) {
             if (null == clientInstance) {
-                clientInstance = UnirestClient.getSharedInstance();
+                clientInstance = OkClient.getSharedInstance();
     }
         }
         return clientInstance;

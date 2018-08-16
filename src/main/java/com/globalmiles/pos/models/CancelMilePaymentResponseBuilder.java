@@ -19,7 +19,7 @@ public class CancelMilePaymentResponseBuilder {
     }
 
     /**
-     * 0  Success, 1 and bigger than 1 unsuccessful
+     * 0  Success, 1 and bigger than 1 unsuccessful.
      */
     public CancelMilePaymentResponseBuilder returnCode(int returnCode) {
         cancelMilePaymentResponse.setReturnCode(returnCode);

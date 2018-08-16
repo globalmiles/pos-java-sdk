@@ -19,26 +19,18 @@ public class CompleteMilePaymentRequestBuilder {
     }
 
     /**
-     * Provision ID
+     * Terminal ID.
      */
-    public CompleteMilePaymentRequestBuilder bonusPaymentProvisionId(String bonusPaymentProvisionId) {
-        completeMilePaymentRequest.setBonusPaymentProvisionId(bonusPaymentProvisionId);
+    public CompleteMilePaymentRequestBuilder terminalId(String terminalId) {
+        completeMilePaymentRequest.setTerminalId(terminalId);
         return this;
     }
 
     /**
-     * Terminal code.
+     * One time password that sends to customer phone.
      */
-    public CompleteMilePaymentRequestBuilder oKCSicilNo(String oKCSicilNo) {
-        completeMilePaymentRequest.setOKCSicilNo(oKCSicilNo);
-        return this;
-    }
-
-    /**
-     * One time password that sends to customer phone
-     */
-    public CompleteMilePaymentRequestBuilder oTP(String oTP) {
-        completeMilePaymentRequest.setOTP(oTP);
+    public CompleteMilePaymentRequestBuilder otp(String otp) {
+        completeMilePaymentRequest.setOtp(otp);
         return this;
     }
     /**

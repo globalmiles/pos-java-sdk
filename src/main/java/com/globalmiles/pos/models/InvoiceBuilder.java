@@ -18,16 +18,25 @@ public class InvoiceBuilder {
         invoice = new Invoice();
     }
 
+    /**
+     * Type of the invoice.
+     */
     public InvoiceBuilder invoiceType(String invoiceType) {
         invoice.setInvoiceType(invoiceType);
         return this;
     }
 
-    public InvoiceBuilder invoiceNo(String invoiceNo) {
-        invoice.setInvoiceNo(invoiceNo);
+    /**
+     * Number of the invoice.
+     */
+    public InvoiceBuilder invoiceNumber(String invoiceNumber) {
+        invoice.setInvoiceNumber(invoiceNumber);
         return this;
     }
 
+    /**
+     * Date of the invoice.
+     */
     public InvoiceBuilder invoiceDate(String invoiceDate) {
         invoice.setInvoiceDate(invoiceDate);
         return this;

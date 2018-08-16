@@ -11,209 +11,277 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class TransactionResultRequest 
         implements java.io.Serializable {
-    private static final long serialVersionUID = 5463405382873830707L;
-    private int totalReceiptAmount;
-    private int totalVATAmount;
-    private String oKCSicilNo;
-    private int receiptNo;
-    private int zno;
+    private static final long serialVersionUID = -6019214673952477968L;
+    private double totalReceiptAmount;
+    private double totalVatAmount;
+    private String currency;
+    private int partnerId;
+    private int branchId;
+    private String terminalId;
+    private String receiptNumber;
+    private String extraNumber1;
+    private String extraNumber2;
     private int recognitionId;
-    private int ekuNo;
     private String receiptType;
     private String receiptDateTime;
     private Invoice invoiceInfo;
     private List<Payment> payments;
     private List<Discount> discounts;
+    private String extraData;
     /** GETTER
-     * Total Receipt Amount  ex:12.35 TL == 1235
+     * Total receipt amount.
      */
-    @JsonGetter("totalReceiptAmount")
-    public int getTotalReceiptAmount ( ) { 
+    @JsonGetter("total_receipt_amount")
+    public double getTotalReceiptAmount ( ) { 
         return this.totalReceiptAmount;
     }
     
     /** SETTER
-     * Total Receipt Amount  ex:12.35 TL == 1235
+     * Total receipt amount.
      */
-    @JsonSetter("totalReceiptAmount")
-    public void setTotalReceiptAmount (int value) { 
+    @JsonSetter("total_receipt_amount")
+    public void setTotalReceiptAmount (double value) { 
         this.totalReceiptAmount = value;
     }
  
     /** GETTER
-     * Total VAT Amount  ex: 0.85 TL == 85
+     * Total tax amount.
      */
-    @JsonGetter("totalVATAmount")
-    public int getTotalVATAmount ( ) { 
-        return this.totalVATAmount;
+    @JsonGetter("total_vat_amount")
+    public double getTotalVatAmount ( ) { 
+        return this.totalVatAmount;
     }
     
     /** SETTER
-     * Total VAT Amount  ex: 0.85 TL == 85
+     * Total tax amount.
      */
-    @JsonSetter("totalVATAmount")
-    public void setTotalVATAmount (int value) { 
-        this.totalVATAmount = value;
+    @JsonSetter("total_vat_amount")
+    public void setTotalVatAmount (double value) { 
+        this.totalVatAmount = value;
     }
  
     /** GETTER
-     * Terminal code.
+     * ISO-4217 3-letter currency code.
      */
-    @JsonGetter("OKCSicilNo")
-    public String getOKCSicilNo ( ) { 
-        return this.oKCSicilNo;
+    @JsonGetter("currency")
+    public String getCurrency ( ) { 
+        return this.currency;
     }
     
     /** SETTER
-     * Terminal code.
+     * ISO-4217 3-letter currency code.
      */
-    @JsonSetter("OKCSicilNo")
-    public void setOKCSicilNo (String value) { 
-        this.oKCSicilNo = value;
+    @JsonSetter("currency")
+    public void setCurrency (String value) { 
+        this.currency = value;
     }
  
     /** GETTER
-     * ReceiptNo
+     * Partner ID.
      */
-    @JsonGetter("ReceiptNo")
-    public int getReceiptNo ( ) { 
-        return this.receiptNo;
+    @JsonGetter("partner_id")
+    public int getPartnerId ( ) { 
+        return this.partnerId;
     }
     
     /** SETTER
-     * ReceiptNo
+     * Partner ID.
      */
-    @JsonSetter("ReceiptNo")
-    public void setReceiptNo (int value) { 
-        this.receiptNo = value;
+    @JsonSetter("partner_id")
+    public void setPartnerId (int value) { 
+        this.partnerId = value;
     }
  
     /** GETTER
-     * Z no
+     * Branch ID.
      */
-    @JsonGetter("Zno")
-    public int getZno ( ) { 
-        return this.zno;
+    @JsonGetter("branch_id")
+    public int getBranchId ( ) { 
+        return this.branchId;
     }
     
     /** SETTER
-     * Z no
+     * Branch ID.
      */
-    @JsonSetter("Zno")
-    public void setZno (int value) { 
-        this.zno = value;
+    @JsonSetter("branch_id")
+    public void setBranchId (int value) { 
+        this.branchId = value;
     }
  
     /** GETTER
-     * Session based Identification Number .
+     * Terminal ID.
      */
-    @JsonGetter("recognitionId")
+    @JsonGetter("terminal_id")
+    public String getTerminalId ( ) { 
+        return this.terminalId;
+    }
+    
+    /** SETTER
+     * Terminal ID.
+     */
+    @JsonSetter("terminal_id")
+    public void setTerminalId (String value) { 
+        this.terminalId = value;
+    }
+ 
+    /** GETTER
+     * Receipt number.
+     */
+    @JsonGetter("receipt_number")
+    public String getReceiptNumber ( ) { 
+        return this.receiptNumber;
+    }
+    
+    /** SETTER
+     * Receipt number.
+     */
+    @JsonSetter("receipt_number")
+    public void setReceiptNumber (String value) { 
+        this.receiptNumber = value;
+    }
+ 
+    /** GETTER
+     * Extra number 1.
+     */
+    @JsonGetter("extra_number_1")
+    public String getExtraNumber1 ( ) { 
+        return this.extraNumber1;
+    }
+    
+    /** SETTER
+     * Extra number 1.
+     */
+    @JsonSetter("extra_number_1")
+    public void setExtraNumber1 (String value) { 
+        this.extraNumber1 = value;
+    }
+ 
+    /** GETTER
+     * Extra number 2.
+     */
+    @JsonGetter("extra_number_2")
+    public String getExtraNumber2 ( ) { 
+        return this.extraNumber2;
+    }
+    
+    /** SETTER
+     * Extra number 2.
+     */
+    @JsonSetter("extra_number_2")
+    public void setExtraNumber2 (String value) { 
+        this.extraNumber2 = value;
+    }
+ 
+    /** GETTER
+     * Session based identification number.
+     */
+    @JsonGetter("recognition_id")
     public int getRecognitionId ( ) { 
         return this.recognitionId;
     }
     
     /** SETTER
-     * Session based Identification Number .
+     * Session based identification number.
      */
-    @JsonSetter("recognitionId")
+    @JsonSetter("recognition_id")
     public void setRecognitionId (int value) { 
         this.recognitionId = value;
     }
  
     /** GETTER
-     * Eku no (Electronic Journal)
+     * Receipt type (Invoice , Food ..)
      */
-    @JsonGetter("EkuNo")
-    public int getEkuNo ( ) { 
-        return this.ekuNo;
-    }
-    
-    /** SETTER
-     * Eku no (Electronic Journal)
-     */
-    @JsonSetter("EkuNo")
-    public void setEkuNo (int value) { 
-        this.ekuNo = value;
-    }
- 
-    /** GETTER
-     * Receipt Type (Invoice , Food ..)
-     */
-    @JsonGetter("ReceiptType")
+    @JsonGetter("receipt_type")
     public String getReceiptType ( ) { 
         return this.receiptType;
     }
     
     /** SETTER
-     * Receipt Type (Invoice , Food ..)
+     * Receipt type (Invoice , Food ..)
      */
-    @JsonSetter("ReceiptType")
+    @JsonSetter("receipt_type")
     public void setReceiptType (String value) { 
         this.receiptType = value;
     }
  
     /** GETTER
-     * It should be  GGAAYYYYSSDD formatted.
+     * It should be DDMMYYYYHHMM formatted.
      */
-    @JsonGetter("ReceiptDateTime")
+    @JsonGetter("receipt_date_time")
     public String getReceiptDateTime ( ) { 
         return this.receiptDateTime;
     }
     
     /** SETTER
-     * It should be  GGAAYYYYSSDD formatted.
+     * It should be DDMMYYYYHHMM formatted.
      */
-    @JsonSetter("ReceiptDateTime")
+    @JsonSetter("receipt_date_time")
     public void setReceiptDateTime (String value) { 
         this.receiptDateTime = value;
     }
  
     /** GETTER
-     * Invoice detail info
+     * Invoice details.
      */
-    @JsonGetter("InvoiceInfo")
+    @JsonGetter("invoice_info")
     public Invoice getInvoiceInfo ( ) { 
         return this.invoiceInfo;
     }
     
     /** SETTER
-     * Invoice detail info
+     * Invoice details.
      */
-    @JsonSetter("InvoiceInfo")
+    @JsonSetter("invoice_info")
     public void setInvoiceInfo (Invoice value) { 
         this.invoiceInfo = value;
     }
  
     /** GETTER
-     * Payment Detail Block
+     * Payment details.
      */
-    @JsonGetter("Payments")
+    @JsonGetter("payments")
     public List<Payment> getPayments ( ) { 
         return this.payments;
     }
     
     /** SETTER
-     * Payment Detail Block
+     * Payment details.
      */
-    @JsonSetter("Payments")
+    @JsonSetter("payments")
     public void setPayments (List<Payment> value) { 
         this.payments = value;
     }
  
     /** GETTER
-     * TODO: Write general description for this method
+     * Discount details.
      */
-    @JsonGetter("Discounts")
+    @JsonGetter("discounts")
     public List<Discount> getDiscounts ( ) { 
         return this.discounts;
     }
     
     /** SETTER
-     * TODO: Write general description for this method
+     * Discount details.
      */
-    @JsonSetter("Discounts")
+    @JsonSetter("discounts")
     public void setDiscounts (List<Discount> value) { 
         this.discounts = value;
+    }
+ 
+    /** GETTER
+     * Extra data.
+     */
+    @JsonGetter("extra_data")
+    public String getExtraData ( ) { 
+        return this.extraData;
+    }
+    
+    /** SETTER
+     * Extra data.
+     */
+    @JsonSetter("extra_data")
+    public void setExtraData (String value) { 
+        this.extraData = value;
     }
  
 }

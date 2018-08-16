@@ -42,8 +42,8 @@ public class EarnMilesController extends BaseController {
 
     /**
      * After getting customer info by Get Customer Info endpoint and finished the shopping procedure in POS terminal, use this endpoint to complete transaction.
-     * You can try this API with configuring client parameters in Console Tab below. Test OAuthClientId is 552698b91cae424b9b3ddee14eea6faf564f1b5fb7764854b73b2763e0e68c66
-     * and OAuthClientSecret is d0a8b00a3d754ea5a013465bcc23f6efa89e9dfb080a4f4eb460e3306653d92b
+     * You can try this endpoint with configuring client parameters in Console Tab below. Test OAuthClientId is b30359c21700fd6f2b91154adcb7b37bab3e7e0a33e22682e5dd149d7a6ac4df
+     * and OAuthClientSecret is 4bc4335faad41d6a23cd059e495005f00496a64e34e6187b1d72695a8debd28c
      * @param    body    Required parameter: The body of the request.
      * @return    Returns the TransactionResultResponse response from the API call 
      */
@@ -59,8 +59,8 @@ public class EarnMilesController extends BaseController {
 
     /**
      * After getting customer info by Get Customer Info endpoint and finished the shopping procedure in POS terminal, use this endpoint to complete transaction.
-     * You can try this API with configuring client parameters in Console Tab below. Test OAuthClientId is 552698b91cae424b9b3ddee14eea6faf564f1b5fb7764854b73b2763e0e68c66
-     * and OAuthClientSecret is d0a8b00a3d754ea5a013465bcc23f6efa89e9dfb080a4f4eb460e3306653d92b
+     * You can try this endpoint with configuring client parameters in Console Tab below. Test OAuthClientId is b30359c21700fd6f2b91154adcb7b37bab3e7e0a33e22682e5dd149d7a6ac4df
+     * and OAuthClientSecret is 4bc4335faad41d6a23cd059e495005f00496a64e34e6187b1d72695a8debd28c
      * @param    body    Required parameter: The body of the request.
      * @return    Returns the void response from the API call 
      */
@@ -75,7 +75,7 @@ public class EarnMilesController extends BaseController {
 
                 //prepare query string for API call
                 StringBuilder _queryBuilder = new StringBuilder(_baseUri);
-                _queryBuilder.append("/v1/pos/TransactionResult");
+                _queryBuilder.append("/v2/pos/transaction_result");
                 //validate and preprocess url
                 String _queryUrl = APIHelper.cleanUrl(_queryBuilder);
 
@@ -88,7 +88,7 @@ public class EarnMilesController extends BaseController {
                 }
                 //load all headers for the outgoing API request
                 Map<String, String> _headers = new HashMap<String, String>() {
-                    private static final long serialVersionUID = 4634803320116204543L;
+                    private static final long serialVersionUID = 6809502995245157700L;
                     {
                         put( "Authorization", authorizationHeader);
                         put( "user-agent", "APIMATIC 2.0" );

@@ -18,17 +18,26 @@ public class DiscountBuilder {
         discount = new Discount();
     }
 
-    public DiscountBuilder orijin(String orijin) {
-        discount.setOrijin(orijin);
+    /**
+     * Origin of the discount. 1: Global Miles, 2: Other.
+     */
+    public DiscountBuilder origin(String origin) {
+        discount.setOrigin(origin);
         return this;
     }
 
+    /**
+     * Type of the discount. 0: amount based, 1: rate based.
+     */
     public DiscountBuilder type(String type) {
         discount.setType(type);
         return this;
     }
 
-    public DiscountBuilder value(String value) {
+    /**
+     * Value of the discount.
+     */
+    public DiscountBuilder value(double value) {
         discount.setValue(value);
         return this;
     }

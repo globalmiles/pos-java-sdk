@@ -11,54 +11,54 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class Invoice 
         implements java.io.Serializable {
-    private static final long serialVersionUID = 4812531083109991467L;
+    private static final long serialVersionUID = -7436646771283398026L;
     private String invoiceType;
-    private String invoiceNo;
+    private String invoiceNumber;
     private String invoiceDate;
     /** GETTER
-     * TODO: Write general description for this method
+     * Type of the invoice.
      */
-    @JsonGetter("invoiceType")
+    @JsonGetter("invoice_type")
     public String getInvoiceType ( ) { 
         return this.invoiceType;
     }
     
     /** SETTER
-     * TODO: Write general description for this method
+     * Type of the invoice.
      */
-    @JsonSetter("invoiceType")
+    @JsonSetter("invoice_type")
     public void setInvoiceType (String value) { 
         this.invoiceType = value;
     }
  
     /** GETTER
-     * TODO: Write general description for this method
+     * Number of the invoice.
      */
-    @JsonGetter("invoiceNo")
-    public String getInvoiceNo ( ) { 
-        return this.invoiceNo;
+    @JsonGetter("invoice_number")
+    public String getInvoiceNumber ( ) { 
+        return this.invoiceNumber;
     }
     
     /** SETTER
-     * TODO: Write general description for this method
+     * Number of the invoice.
      */
-    @JsonSetter("invoiceNo")
-    public void setInvoiceNo (String value) { 
-        this.invoiceNo = value;
+    @JsonSetter("invoice_number")
+    public void setInvoiceNumber (String value) { 
+        this.invoiceNumber = value;
     }
  
     /** GETTER
-     * TODO: Write general description for this method
+     * Date of the invoice.
      */
-    @JsonGetter("invoiceDate")
+    @JsonGetter("invoice_date")
     public String getInvoiceDate ( ) { 
         return this.invoiceDate;
     }
     
     /** SETTER
-     * TODO: Write general description for this method
+     * Date of the invoice.
      */
-    @JsonSetter("invoiceDate")
+    @JsonSetter("invoice_date")
     public void setInvoiceDate (String value) { 
         this.invoiceDate = value;
     }

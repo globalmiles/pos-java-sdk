@@ -17,7 +17,7 @@ import com.globalmiles.pos.exceptions.APIException;
 import com.globalmiles.pos.http.client.APICallBack;
 import com.globalmiles.pos.http.client.HttpContext;
 import com.globalmiles.pos.controllers.syncwrapper.APICallBackCatcher;
-import com.mashape.unirest.http.utils.Base64Coder;
+import org.apache.commons.codec.binary.Base64;
 
 /**
  * Utility class for OAuth 2 authorization and token management
@@ -163,7 +163,8 @@ public class OAuthManager {
      * @return Authorization header value for this client
      */
     private static String getBasicAuthForClient() {
-        return "Basic " + Base64Coder.encodeString(Configuration.oAuthClientId + ":" + Configuration.oAuthClientSecret);
+        String val = Configuration.oAuthClientId + ":" + Configuration.oAuthClientSecret;
+        return "Basic " + new String(Base64.encodeBase64(val.getBytes()));
     }
 
 }

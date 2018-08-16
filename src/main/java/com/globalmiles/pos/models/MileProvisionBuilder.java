@@ -21,21 +21,29 @@ public class MileProvisionBuilder {
     /**
      * Provision ID
      */
-    public MileProvisionBuilder bonusPaymentProvisionId(String bonusPaymentProvisionId) {
-        mileProvision.setBonusPaymentProvisionId(bonusPaymentProvisionId);
+    public MileProvisionBuilder milesPaymentProvisionId(int milesPaymentProvisionId) {
+        mileProvision.setMilesPaymentProvisionId(milesPaymentProvisionId);
         return this;
     }
 
     /**
-     * Used Bonus Amount
+     * Used amount
      */
-    public MileProvisionBuilder usedBonusAmount(int usedBonusAmount) {
-        mileProvision.setUsedBonusAmount(usedBonusAmount);
+    public MileProvisionBuilder usedMilesAsAmount(double usedMilesAsAmount) {
+        mileProvision.setUsedMilesAsAmount(usedMilesAsAmount);
         return this;
     }
 
     /**
-     * Date/time
+     * ISO-4217 3-letter currency code.
+     */
+    public MileProvisionBuilder currency(String currency) {
+        mileProvision.setCurrency(currency);
+        return this;
+    }
+
+    /**
+     * Date time of the mile provision.
      */
     public MileProvisionBuilder dateTime(String dateTime) {
         mileProvision.setDateTime(dateTime);

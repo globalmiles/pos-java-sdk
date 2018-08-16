@@ -19,7 +19,7 @@ public class TransactionResultResponseBuilder {
     }
 
     /**
-     * 0  Success, 1 and bigger than 1 unsuccessful
+     * 0  Success, 1 and bigger than 1 unsuccessful.
      */
     public TransactionResultResponseBuilder returnCode(int returnCode) {
         transactionResultResponse.setReturnCode(returnCode);
@@ -27,10 +27,26 @@ public class TransactionResultResponseBuilder {
     }
 
     /**
-     * if success return is empty. if unsuccessful it returns error message
+     * if success return is empty. if unsuccessful it returns error message.
      */
     public TransactionResultResponseBuilder returnDesc(String returnDesc) {
         transactionResultResponse.setReturnDesc(returnDesc);
+        return this;
+    }
+
+    /**
+     * Text data to be used for printing the receipt.
+     */
+    public TransactionResultResponseBuilder qrData(String qrData) {
+        transactionResultResponse.setQrData(qrData);
+        return this;
+    }
+
+    /**
+     * Extra information for generel usage.
+     */
+    public TransactionResultResponseBuilder extraInfo(String extraInfo) {
+        transactionResultResponse.setExtraInfo(extraInfo);
         return this;
     }
     /**
