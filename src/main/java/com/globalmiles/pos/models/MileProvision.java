@@ -11,54 +11,71 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class MileProvision 
         implements java.io.Serializable {
-    private static final long serialVersionUID = 4637546893757299457L;
-    private String bonusPaymentProvisionId;
-    private int usedBonusAmount;
+    private static final long serialVersionUID = -6540298654490986374L;
+    private int milesPaymentProvisionId;
+    private double usedMilesAsAmount;
+    private String currency;
     private String dateTime;
     /** GETTER
      * Provision ID
      */
-    @JsonGetter("bonusPaymentProvisionId")
-    public String getBonusPaymentProvisionId ( ) { 
-        return this.bonusPaymentProvisionId;
+    @JsonGetter("miles_payment_provision_id")
+    public int getMilesPaymentProvisionId ( ) { 
+        return this.milesPaymentProvisionId;
     }
     
     /** SETTER
      * Provision ID
      */
-    @JsonSetter("bonusPaymentProvisionId")
-    public void setBonusPaymentProvisionId (String value) { 
-        this.bonusPaymentProvisionId = value;
+    @JsonSetter("miles_payment_provision_id")
+    public void setMilesPaymentProvisionId (int value) { 
+        this.milesPaymentProvisionId = value;
     }
  
     /** GETTER
-     * Used Bonus Amount
+     * Used amount
      */
-    @JsonGetter("usedBonusAmount")
-    public int getUsedBonusAmount ( ) { 
-        return this.usedBonusAmount;
+    @JsonGetter("used_miles_as_amount")
+    public double getUsedMilesAsAmount ( ) { 
+        return this.usedMilesAsAmount;
     }
     
     /** SETTER
-     * Used Bonus Amount
+     * Used amount
      */
-    @JsonSetter("usedBonusAmount")
-    public void setUsedBonusAmount (int value) { 
-        this.usedBonusAmount = value;
+    @JsonSetter("used_miles_as_amount")
+    public void setUsedMilesAsAmount (double value) { 
+        this.usedMilesAsAmount = value;
     }
  
     /** GETTER
-     * Date/time
+     * ISO-4217 3-letter currency code.
      */
-    @JsonGetter("dateTime")
+    @JsonGetter("currency")
+    public String getCurrency ( ) { 
+        return this.currency;
+    }
+    
+    /** SETTER
+     * ISO-4217 3-letter currency code.
+     */
+    @JsonSetter("currency")
+    public void setCurrency (String value) { 
+        this.currency = value;
+    }
+ 
+    /** GETTER
+     * Date time of the mile provision.
+     */
+    @JsonGetter("date_time")
     public String getDateTime ( ) { 
         return this.dateTime;
     }
     
     /** SETTER
-     * Date/time
+     * Date time of the mile provision.
      */
-    @JsonSetter("dateTime")
+    @JsonSetter("date_time")
     public void setDateTime (String value) { 
         this.dateTime = value;
     }

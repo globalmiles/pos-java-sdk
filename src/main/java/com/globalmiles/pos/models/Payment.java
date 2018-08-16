@@ -11,39 +11,56 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class Payment 
         implements java.io.Serializable {
-    private static final long serialVersionUID = 5663644764596643799L;
-    private int payAmount;
-    private int paymentType;
+    private static final long serialVersionUID = -9094944060620378703L;
+    private double payAmount;
+    private String paymentType;
+    private Integer milesPaymentProvisionId;
     /** GETTER
-     * TODO: Write general description for this method
+     * Amount of the payment.
      */
-    @JsonGetter("payAmount")
-    public int getPayAmount ( ) { 
+    @JsonGetter("pay_amount")
+    public double getPayAmount ( ) { 
         return this.payAmount;
     }
     
     /** SETTER
-     * TODO: Write general description for this method
+     * Amount of the payment.
      */
-    @JsonSetter("payAmount")
-    public void setPayAmount (int value) { 
+    @JsonSetter("pay_amount")
+    public void setPayAmount (double value) { 
         this.payAmount = value;
     }
  
     /** GETTER
-     * TODO: Write general description for this method
+     * Type of the payment.
      */
-    @JsonGetter("paymentType")
-    public int getPaymentType ( ) { 
+    @JsonGetter("payment_type")
+    public String getPaymentType ( ) { 
         return this.paymentType;
     }
     
     /** SETTER
-     * TODO: Write general description for this method
+     * Type of the payment.
      */
-    @JsonSetter("paymentType")
-    public void setPaymentType (int value) { 
+    @JsonSetter("payment_type")
+    public void setPaymentType (String value) { 
         this.paymentType = value;
+    }
+ 
+    /** GETTER
+     * Provision ID for pay with miles.
+     */
+    @JsonGetter("miles_payment_provision_id")
+    public Integer getMilesPaymentProvisionId ( ) { 
+        return this.milesPaymentProvisionId;
+    }
+    
+    /** SETTER
+     * Provision ID for pay with miles.
+     */
+    @JsonSetter("miles_payment_provision_id")
+    public void setMilesPaymentProvisionId (Integer value) { 
+        this.milesPaymentProvisionId = value;
     }
  
 }

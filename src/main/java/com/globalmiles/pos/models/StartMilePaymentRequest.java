@@ -11,73 +11,90 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class StartMilePaymentRequest 
         implements java.io.Serializable {
-    private static final long serialVersionUID = 5337924204104562814L;
-    private int totalReceiptAmount;
-    private int usedBonusAmount;
+    private static final long serialVersionUID = -2253620305047936440L;
+    private double totalReceiptAmount;
+    private double usedMilesAsAmount;
+    private String currency;
     private int recognitionId;
-    private String oKCSicilNo;
+    private String terminalId;
     /** GETTER
-     * Total Receipt Amount  ex:12.35 TL == 1235
+     * Total receipt amount.
      */
-    @JsonGetter("totalReceiptAmount")
-    public int getTotalReceiptAmount ( ) { 
+    @JsonGetter("total_receipt_amount")
+    public double getTotalReceiptAmount ( ) { 
         return this.totalReceiptAmount;
     }
     
     /** SETTER
-     * Total Receipt Amount  ex:12.35 TL == 1235
+     * Total receipt amount.
      */
-    @JsonSetter("totalReceiptAmount")
-    public void setTotalReceiptAmount (int value) { 
+    @JsonSetter("total_receipt_amount")
+    public void setTotalReceiptAmount (double value) { 
         this.totalReceiptAmount = value;
     }
  
     /** GETTER
-     * Used Amount that has been used in the shopping  ex:0.85 TL == 85
+     * Used amount that has been used in the shopping.
      */
-    @JsonGetter("usedBonusAmount")
-    public int getUsedBonusAmount ( ) { 
-        return this.usedBonusAmount;
+    @JsonGetter("used_miles_as_amount")
+    public double getUsedMilesAsAmount ( ) { 
+        return this.usedMilesAsAmount;
     }
     
     /** SETTER
-     * Used Amount that has been used in the shopping  ex:0.85 TL == 85
+     * Used amount that has been used in the shopping.
      */
-    @JsonSetter("usedBonusAmount")
-    public void setUsedBonusAmount (int value) { 
-        this.usedBonusAmount = value;
+    @JsonSetter("used_miles_as_amount")
+    public void setUsedMilesAsAmount (double value) { 
+        this.usedMilesAsAmount = value;
     }
  
     /** GETTER
-     * Session based user identification number
+     * ISO-4217 3-letter currency code.
      */
-    @JsonGetter("recognitionId")
+    @JsonGetter("currency")
+    public String getCurrency ( ) { 
+        return this.currency;
+    }
+    
+    /** SETTER
+     * ISO-4217 3-letter currency code.
+     */
+    @JsonSetter("currency")
+    public void setCurrency (String value) { 
+        this.currency = value;
+    }
+ 
+    /** GETTER
+     * Session based user identification number.
+     */
+    @JsonGetter("recognition_id")
     public int getRecognitionId ( ) { 
         return this.recognitionId;
     }
     
     /** SETTER
-     * Session based user identification number
+     * Session based user identification number.
      */
-    @JsonSetter("recognitionId")
+    @JsonSetter("recognition_id")
     public void setRecognitionId (int value) { 
         this.recognitionId = value;
     }
  
     /** GETTER
-     * Terminal code.
+     * Terminal ID.
      */
-    @JsonGetter("OKCSicilNo")
-    public String getOKCSicilNo ( ) { 
-        return this.oKCSicilNo;
+    @JsonGetter("terminal_id")
+    public String getTerminalId ( ) { 
+        return this.terminalId;
     }
     
     /** SETTER
-     * Terminal code.
+     * Terminal ID.
      */
-    @JsonSetter("OKCSicilNo")
-    public void setOKCSicilNo (String value) { 
-        this.oKCSicilNo = value;
+    @JsonSetter("terminal_id")
+    public void setTerminalId (String value) { 
+        this.terminalId = value;
     }
  
 }

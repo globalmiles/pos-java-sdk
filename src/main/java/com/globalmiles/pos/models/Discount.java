@@ -11,28 +11,28 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class Discount 
         implements java.io.Serializable {
-    private static final long serialVersionUID = 4615422705251814393L;
-    private String orijin;
+    private static final long serialVersionUID = -3842059329480167385L;
+    private String origin;
     private String type;
-    private String value;
+    private double value;
     /** GETTER
-     * TODO: Write general description for this method
+     * Origin of the discount. 1: Global Miles, 2: Other.
      */
-    @JsonGetter("orijin")
-    public String getOrijin ( ) { 
-        return this.orijin;
+    @JsonGetter("origin")
+    public String getOrigin ( ) { 
+        return this.origin;
     }
     
     /** SETTER
-     * TODO: Write general description for this method
+     * Origin of the discount. 1: Global Miles, 2: Other.
      */
-    @JsonSetter("orijin")
-    public void setOrijin (String value) { 
-        this.orijin = value;
+    @JsonSetter("origin")
+    public void setOrigin (String value) { 
+        this.origin = value;
     }
  
     /** GETTER
-     * TODO: Write general description for this method
+     * Type of the discount. 0: amount based, 1: rate based.
      */
     @JsonGetter("type")
     public String getType ( ) { 
@@ -40,7 +40,7 @@ public class Discount
     }
     
     /** SETTER
-     * TODO: Write general description for this method
+     * Type of the discount. 0: amount based, 1: rate based.
      */
     @JsonSetter("type")
     public void setType (String value) { 
@@ -48,18 +48,18 @@ public class Discount
     }
  
     /** GETTER
-     * TODO: Write general description for this method
+     * Value of the discount.
      */
     @JsonGetter("value")
-    public String getValue ( ) { 
+    public double getValue ( ) { 
         return this.value;
     }
     
     /** SETTER
-     * TODO: Write general description for this method
+     * Value of the discount.
      */
     @JsonSetter("value")
-    public void setValue (String value) { 
+    public void setValue (double value) { 
         this.value = value;
     }
  

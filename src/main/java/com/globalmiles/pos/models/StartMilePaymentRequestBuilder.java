@@ -19,23 +19,31 @@ public class StartMilePaymentRequestBuilder {
     }
 
     /**
-     * Total Receipt Amount  ex:12.35 TL == 1235
+     * Total receipt amount.
      */
-    public StartMilePaymentRequestBuilder totalReceiptAmount(int totalReceiptAmount) {
+    public StartMilePaymentRequestBuilder totalReceiptAmount(double totalReceiptAmount) {
         startMilePaymentRequest.setTotalReceiptAmount(totalReceiptAmount);
         return this;
     }
 
     /**
-     * Used Amount that has been used in the shopping  ex:0.85 TL == 85
+     * Used amount that has been used in the shopping.
      */
-    public StartMilePaymentRequestBuilder usedBonusAmount(int usedBonusAmount) {
-        startMilePaymentRequest.setUsedBonusAmount(usedBonusAmount);
+    public StartMilePaymentRequestBuilder usedMilesAsAmount(double usedMilesAsAmount) {
+        startMilePaymentRequest.setUsedMilesAsAmount(usedMilesAsAmount);
         return this;
     }
 
     /**
-     * Session based user identification number
+     * ISO-4217 3-letter currency code.
+     */
+    public StartMilePaymentRequestBuilder currency(String currency) {
+        startMilePaymentRequest.setCurrency(currency);
+        return this;
+    }
+
+    /**
+     * Session based user identification number.
      */
     public StartMilePaymentRequestBuilder recognitionId(int recognitionId) {
         startMilePaymentRequest.setRecognitionId(recognitionId);
@@ -43,10 +51,10 @@ public class StartMilePaymentRequestBuilder {
     }
 
     /**
-     * Terminal code.
+     * Terminal ID.
      */
-    public StartMilePaymentRequestBuilder oKCSicilNo(String oKCSicilNo) {
-        startMilePaymentRequest.setOKCSicilNo(oKCSicilNo);
+    public StartMilePaymentRequestBuilder terminalId(String terminalId) {
+        startMilePaymentRequest.setTerminalId(terminalId);
         return this;
     }
     /**

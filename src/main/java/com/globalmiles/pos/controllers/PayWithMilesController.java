@@ -41,10 +41,276 @@ public class PayWithMilesController extends BaseController {
     }
 
     /**
-     * After getting customer info's and RecognitionID to start Payment with Miles Use this API.
-     * After calling this API successfully OTP code send to customer GSM number. This OTP must be used with Complete API in order to complete sale.
-     * You can try this API with configuring client parameters in Console Tab below. Test OAuthClientId is 552698b91cae424b9b3ddee14eea6faf564f1b5fb7764854b73b2763e0e68c66
-     * and OAuthClientSecret is d0a8b00a3d754ea5a013465bcc23f6efa89e9dfb080a4f4eb460e3306653d92b
+     * In order to cancel payment with miles you can use this endpoint. It allows to cancel payment only related GSM and terminal ID numbers.
+     * You can try this endpoint with configuring client parameters in Console Tab below. Test OAuthClientId is b30359c21700fd6f2b91154adcb7b37bab3e7e0a33e22682e5dd149d7a6ac4df
+     * and OAuthClientSecret is 4bc4335faad41d6a23cd059e495005f00496a64e34e6187b1d72695a8debd28c
+     * @param    milesPaymentProvisionId    Required parameter: Provision ID.
+     * @param    body    Required parameter: The body of the request.
+     * @return    Returns the CancelMilePaymentResponse response from the API call 
+     */
+    public CancelMilePaymentResponse deleteCancelMilePayment(
+                final int milesPaymentProvisionId,
+                final CancelMilePaymentRequest body
+    ) throws Throwable {
+        APICallBackCatcher<CancelMilePaymentResponse> callback = new APICallBackCatcher<CancelMilePaymentResponse>();
+        deleteCancelMilePaymentAsync(milesPaymentProvisionId, body, callback);
+        if(!callback.isSuccess())
+            throw callback.getError();
+        return callback.getResult();
+    }
+
+    /**
+     * In order to cancel payment with miles you can use this endpoint. It allows to cancel payment only related GSM and terminal ID numbers.
+     * You can try this endpoint with configuring client parameters in Console Tab below. Test OAuthClientId is b30359c21700fd6f2b91154adcb7b37bab3e7e0a33e22682e5dd149d7a6ac4df
+     * and OAuthClientSecret is 4bc4335faad41d6a23cd059e495005f00496a64e34e6187b1d72695a8debd28c
+     * @param    milesPaymentProvisionId    Required parameter: Provision ID.
+     * @param    body    Required parameter: The body of the request.
+     * @return    Returns the void response from the API call 
+     */
+    public void deleteCancelMilePaymentAsync(
+                final int milesPaymentProvisionId,
+                final CancelMilePaymentRequest body,
+                final APICallBack<CancelMilePaymentResponse> callBack
+    ) {
+        Runnable _responseTask = new Runnable() {
+            public void run() {
+                //the base uri for api requests
+                String _baseUri = Configuration.getBaseUri();
+
+                //prepare query string for API call
+                StringBuilder _queryBuilder = new StringBuilder(_baseUri);
+                _queryBuilder.append("/v2/pos/payments/{miles_payment_provision_id}");
+
+                //process template parameters
+                APIHelper.appendUrlWithTemplateParameters(_queryBuilder, new HashMap<String, Object>() {
+                    private static final long serialVersionUID = 1662038571660337302L;
+                    {
+                        put( "miles_payment_provision_id", milesPaymentProvisionId );
+                    }});
+                //validate and preprocess url
+                String _queryUrl = APIHelper.cleanUrl(_queryBuilder);
+
+                final String authorizationHeader;
+                try {
+                    authorizationHeader = OAuthManager.getInstance().getAuthorizationHeader();
+                } catch (Throwable e) {
+                   callBack.onFailure(null, e);
+                   return;
+                }
+                //load all headers for the outgoing API request
+                Map<String, String> _headers = new HashMap<String, String>() {
+                    private static final long serialVersionUID = 6809502995245157700L;
+                    {
+                        put( "Authorization", authorizationHeader);
+                        put( "user-agent", "APIMATIC 2.0" );
+                        put( "accept", "application/json" );
+                        put( "content-type", "application/json" );
+                    }
+                };
+
+                //prepare and invoke the API call request to fetch the response
+                HttpRequest _request;
+                try {
+                    _request = getClientInstance().deleteBody(_queryUrl, _headers, APIHelper.serialize(body));
+                } catch (JsonProcessingException jsonProcessingException) {
+                    //let the caller know of the error
+                    callBack.onFailure(null, jsonProcessingException);
+                    return;
+                }
+                //invoke the callback before request if its not null
+                if (getHttpCallBack() != null)
+                {
+                    getHttpCallBack().OnBeforeRequest(_request);
+                }
+
+                //invoke request and get response
+                getClientInstance().executeAsStringAsync(_request, new APICallBack<HttpResponse>() {
+                    public void onSuccess(HttpContext _context, HttpResponse _response) {
+                        try {
+
+                            //invoke the callback after response if its not null
+                            if (getHttpCallBack() != null)	
+                            {
+                                getHttpCallBack().OnAfterResponse(_context);
+                            }
+
+                            //handle errors defined at the API level
+                            validateResponse(_response, _context);
+
+                            //extract result from the http response
+                            String _responseBody = ((HttpStringResponse)_response).getBody();
+                            CancelMilePaymentResponse _result = APIHelper.deserialize(_responseBody,
+                                                        new TypeReference<CancelMilePaymentResponse>(){});
+
+                            //let the caller know of the success
+                            callBack.onSuccess(_context, _result);
+                        } catch (APIException error) {
+                            //let the caller know of the error
+                            callBack.onFailure(_context, error);
+                        } catch (IOException ioException) {
+                            //let the caller know of the caught IO Exception
+                            callBack.onFailure(_context, ioException);
+                        } catch (Exception exception) {
+                            //let the caller know of the caught Exception
+                            callBack.onFailure(_context, exception);
+                        }
+                    }
+                    public void onFailure(HttpContext _context, Throwable _error) {
+                        //invoke the callback after response if its not null
+                        if (getHttpCallBack() != null)
+                        {
+                            getHttpCallBack().OnAfterResponse(_context);
+                        }
+
+                        //let the caller know of the failure
+                        callBack.onFailure(_context, _error);
+                    }
+                });
+            }
+        };
+
+        //execute async using thread pool
+        APIHelper.getScheduler().execute(_responseTask);
+    }
+
+    /**
+     * In order to finalize payment with miles use this endpoint. Use the OTP number which is send to user GSM on the Request body.
+     * You can try this endpoint with configuring client parameters in Console Tab below. Test OAuthClientId is b30359c21700fd6f2b91154adcb7b37bab3e7e0a33e22682e5dd149d7a6ac4df
+     * and OAuthClientSecret is 4bc4335faad41d6a23cd059e495005f00496a64e34e6187b1d72695a8debd28c
+     * @param    milesPaymentProvisionId    Required parameter: Provision ID.
+     * @param    body    Required parameter: The body of the request.
+     * @return    Returns the CompleteMilePaymentResponse response from the API call 
+     */
+    public CompleteMilePaymentResponse updateCompleteMilePayment(
+                final int milesPaymentProvisionId,
+                final CompleteMilePaymentRequest body
+    ) throws Throwable {
+        APICallBackCatcher<CompleteMilePaymentResponse> callback = new APICallBackCatcher<CompleteMilePaymentResponse>();
+        updateCompleteMilePaymentAsync(milesPaymentProvisionId, body, callback);
+        if(!callback.isSuccess())
+            throw callback.getError();
+        return callback.getResult();
+    }
+
+    /**
+     * In order to finalize payment with miles use this endpoint. Use the OTP number which is send to user GSM on the Request body.
+     * You can try this endpoint with configuring client parameters in Console Tab below. Test OAuthClientId is b30359c21700fd6f2b91154adcb7b37bab3e7e0a33e22682e5dd149d7a6ac4df
+     * and OAuthClientSecret is 4bc4335faad41d6a23cd059e495005f00496a64e34e6187b1d72695a8debd28c
+     * @param    milesPaymentProvisionId    Required parameter: Provision ID.
+     * @param    body    Required parameter: The body of the request.
+     * @return    Returns the void response from the API call 
+     */
+    public void updateCompleteMilePaymentAsync(
+                final int milesPaymentProvisionId,
+                final CompleteMilePaymentRequest body,
+                final APICallBack<CompleteMilePaymentResponse> callBack
+    ) {
+        Runnable _responseTask = new Runnable() {
+            public void run() {
+                //the base uri for api requests
+                String _baseUri = Configuration.getBaseUri();
+
+                //prepare query string for API call
+                StringBuilder _queryBuilder = new StringBuilder(_baseUri);
+                _queryBuilder.append("/v2/pos/payments/{miles_payment_provision_id}");
+
+                //process template parameters
+                APIHelper.appendUrlWithTemplateParameters(_queryBuilder, new HashMap<String, Object>() {
+                    private static final long serialVersionUID = 1662038571660337302L;
+                    {
+                        put( "miles_payment_provision_id", milesPaymentProvisionId );
+                    }});
+                //validate and preprocess url
+                String _queryUrl = APIHelper.cleanUrl(_queryBuilder);
+
+                final String authorizationHeader;
+                try {
+                    authorizationHeader = OAuthManager.getInstance().getAuthorizationHeader();
+                } catch (Throwable e) {
+                   callBack.onFailure(null, e);
+                   return;
+                }
+                //load all headers for the outgoing API request
+                Map<String, String> _headers = new HashMap<String, String>() {
+                    private static final long serialVersionUID = 6809502995245157700L;
+                    {
+                        put( "Authorization", authorizationHeader);
+                        put( "user-agent", "APIMATIC 2.0" );
+                        put( "accept", "application/json" );
+                        put( "content-type", "application/json" );
+                    }
+                };
+
+                //prepare and invoke the API call request to fetch the response
+                HttpRequest _request;
+                try {
+                    _request = getClientInstance().putBody(_queryUrl, _headers, APIHelper.serialize(body));
+                } catch (JsonProcessingException jsonProcessingException) {
+                    //let the caller know of the error
+                    callBack.onFailure(null, jsonProcessingException);
+                    return;
+                }
+                //invoke the callback before request if its not null
+                if (getHttpCallBack() != null)
+                {
+                    getHttpCallBack().OnBeforeRequest(_request);
+                }
+
+                //invoke request and get response
+                getClientInstance().executeAsStringAsync(_request, new APICallBack<HttpResponse>() {
+                    public void onSuccess(HttpContext _context, HttpResponse _response) {
+                        try {
+
+                            //invoke the callback after response if its not null
+                            if (getHttpCallBack() != null)	
+                            {
+                                getHttpCallBack().OnAfterResponse(_context);
+                            }
+
+                            //handle errors defined at the API level
+                            validateResponse(_response, _context);
+
+                            //extract result from the http response
+                            String _responseBody = ((HttpStringResponse)_response).getBody();
+                            CompleteMilePaymentResponse _result = APIHelper.deserialize(_responseBody,
+                                                        new TypeReference<CompleteMilePaymentResponse>(){});
+
+                            //let the caller know of the success
+                            callBack.onSuccess(_context, _result);
+                        } catch (APIException error) {
+                            //let the caller know of the error
+                            callBack.onFailure(_context, error);
+                        } catch (IOException ioException) {
+                            //let the caller know of the caught IO Exception
+                            callBack.onFailure(_context, ioException);
+                        } catch (Exception exception) {
+                            //let the caller know of the caught Exception
+                            callBack.onFailure(_context, exception);
+                        }
+                    }
+                    public void onFailure(HttpContext _context, Throwable _error) {
+                        //invoke the callback after response if its not null
+                        if (getHttpCallBack() != null)
+                        {
+                            getHttpCallBack().OnAfterResponse(_context);
+                        }
+
+                        //let the caller know of the failure
+                        callBack.onFailure(_context, _error);
+                    }
+                });
+            }
+        };
+
+        //execute async using thread pool
+        APIHelper.getScheduler().execute(_responseTask);
+    }
+
+    /**
+     * After getting customer info's and RecognitionID to start Payment with Miles Use this endpoint.
+     * After calling this endpoint successfully OTP code send to customer GSM number. This OTP must be used with Complete endpoint in order to complete payment.
+     * You can try this endpoint with configuring client parameters in Console Tab below. Test OAuthClientId is b30359c21700fd6f2b91154adcb7b37bab3e7e0a33e22682e5dd149d7a6ac4df
+     * and OAuthClientSecret is 4bc4335faad41d6a23cd059e495005f00496a64e34e6187b1d72695a8debd28c
      * @param    body    Required parameter: The body of the request.
      * @return    Returns the StartMilePaymentResponse response from the API call 
      */
@@ -59,10 +325,10 @@ public class PayWithMilesController extends BaseController {
     }
 
     /**
-     * After getting customer info's and RecognitionID to start Payment with Miles Use this API.
-     * After calling this API successfully OTP code send to customer GSM number. This OTP must be used with Complete API in order to complete sale.
-     * You can try this API with configuring client parameters in Console Tab below. Test OAuthClientId is 552698b91cae424b9b3ddee14eea6faf564f1b5fb7764854b73b2763e0e68c66
-     * and OAuthClientSecret is d0a8b00a3d754ea5a013465bcc23f6efa89e9dfb080a4f4eb460e3306653d92b
+     * After getting customer info's and RecognitionID to start Payment with Miles Use this endpoint.
+     * After calling this endpoint successfully OTP code send to customer GSM number. This OTP must be used with Complete endpoint in order to complete payment.
+     * You can try this endpoint with configuring client parameters in Console Tab below. Test OAuthClientId is b30359c21700fd6f2b91154adcb7b37bab3e7e0a33e22682e5dd149d7a6ac4df
+     * and OAuthClientSecret is 4bc4335faad41d6a23cd059e495005f00496a64e34e6187b1d72695a8debd28c
      * @param    body    Required parameter: The body of the request.
      * @return    Returns the void response from the API call 
      */
@@ -77,7 +343,7 @@ public class PayWithMilesController extends BaseController {
 
                 //prepare query string for API call
                 StringBuilder _queryBuilder = new StringBuilder(_baseUri);
-                _queryBuilder.append("/v1/pos/StartBonusPayment");
+                _queryBuilder.append("/v2/pos/payments");
                 //validate and preprocess url
                 String _queryUrl = APIHelper.cleanUrl(_queryBuilder);
 
@@ -90,7 +356,7 @@ public class PayWithMilesController extends BaseController {
                 }
                 //load all headers for the outgoing API request
                 Map<String, String> _headers = new HashMap<String, String>() {
-                    private static final long serialVersionUID = 5324449311412229037L;
+                    private static final long serialVersionUID = 6809502995245157700L;
                     {
                         put( "Authorization", authorizationHeader);
                         put( "user-agent", "APIMATIC 2.0" );
@@ -165,32 +431,40 @@ public class PayWithMilesController extends BaseController {
     }
 
     /**
-     * In order to finalize payment with Miles use this API. Use the OTP number  which is send to user GSM on the Request body.
-     * You can try this API with configuring client parameters in Console Tab below. Test OAuthClientId is 552698b91cae424b9b3ddee14eea6faf564f1b5fb7764854b73b2763e0e68c66
-     * and OAuthClientSecret is d0a8b00a3d754ea5a013465bcc23f6efa89e9dfb080a4f4eb460e3306653d92b
-     * @param    body    Required parameter: The body of the request.
-     * @return    Returns the CompleteMilePaymentResponse response from the API call 
+     * Before cancelling the payment with miles this endpoint is used to list the related sale.
+     * You can try this endpoint with configuring client parameters in Console Tab below. Test OAuthClientId is b30359c21700fd6f2b91154adcb7b37bab3e7e0a33e22682e5dd149d7a6ac4df
+     * and OAuthClientSecret is 4bc4335faad41d6a23cd059e495005f00496a64e34e6187b1d72695a8debd28c
+     * @param    readCode    Required parameter: Customer Identification Method; GSM, FFP ID, CODE or EMAIL.
+     * @param    readCodeType    Required parameter: 1: GSM, 2: FFP ID, 3: CODE, 4: EMAIL
+     * @param    terminalId    Required parameter: Terminal ID.
+     * @return    Returns the GetMileProvisionsResponse response from the API call 
      */
-    public CompleteMilePaymentResponse createCompleteMilePayment(
-                final CompleteMilePaymentRequest body
+    public GetMileProvisionsResponse getMileProvisions(
+                final String readCode,
+                final String readCodeType,
+                final String terminalId
     ) throws Throwable {
-        APICallBackCatcher<CompleteMilePaymentResponse> callback = new APICallBackCatcher<CompleteMilePaymentResponse>();
-        createCompleteMilePaymentAsync(body, callback);
+        APICallBackCatcher<GetMileProvisionsResponse> callback = new APICallBackCatcher<GetMileProvisionsResponse>();
+        getMileProvisionsAsync(readCode, readCodeType, terminalId, callback);
         if(!callback.isSuccess())
             throw callback.getError();
         return callback.getResult();
     }
 
     /**
-     * In order to finalize payment with Miles use this API. Use the OTP number  which is send to user GSM on the Request body.
-     * You can try this API with configuring client parameters in Console Tab below. Test OAuthClientId is 552698b91cae424b9b3ddee14eea6faf564f1b5fb7764854b73b2763e0e68c66
-     * and OAuthClientSecret is d0a8b00a3d754ea5a013465bcc23f6efa89e9dfb080a4f4eb460e3306653d92b
-     * @param    body    Required parameter: The body of the request.
+     * Before cancelling the payment with miles this endpoint is used to list the related sale.
+     * You can try this endpoint with configuring client parameters in Console Tab below. Test OAuthClientId is b30359c21700fd6f2b91154adcb7b37bab3e7e0a33e22682e5dd149d7a6ac4df
+     * and OAuthClientSecret is 4bc4335faad41d6a23cd059e495005f00496a64e34e6187b1d72695a8debd28c
+     * @param    readCode    Required parameter: Customer Identification Method; GSM, FFP ID, CODE or EMAIL.
+     * @param    readCodeType    Required parameter: 1: GSM, 2: FFP ID, 3: CODE, 4: EMAIL
+     * @param    terminalId    Required parameter: Terminal ID.
      * @return    Returns the void response from the API call 
      */
-    public void createCompleteMilePaymentAsync(
-                final CompleteMilePaymentRequest body,
-                final APICallBack<CompleteMilePaymentResponse> callBack
+    public void getMileProvisionsAsync(
+                final String readCode,
+                final String readCodeType,
+                final String terminalId,
+                final APICallBack<GetMileProvisionsResponse> callBack
     ) {
         Runnable _responseTask = new Runnable() {
             public void run() {
@@ -199,7 +473,16 @@ public class PayWithMilesController extends BaseController {
 
                 //prepare query string for API call
                 StringBuilder _queryBuilder = new StringBuilder(_baseUri);
-                _queryBuilder.append("/v1/pos/CompleteBonusPayment");
+                _queryBuilder.append("/v2/pos/payments");
+
+                //process query parameters
+                APIHelper.appendUrlWithQueryParameters(_queryBuilder, new HashMap<String, Object>() {
+                    private static final long serialVersionUID = 4967065967958336074L;
+                    {
+                        put( "read_code", readCode );
+                        put( "read_code_type", readCodeType );
+                        put( "terminal_id", terminalId );
+                    }});
                 //validate and preprocess url
                 String _queryUrl = APIHelper.cleanUrl(_queryBuilder);
 
@@ -212,24 +495,17 @@ public class PayWithMilesController extends BaseController {
                 }
                 //load all headers for the outgoing API request
                 Map<String, String> _headers = new HashMap<String, String>() {
-                    private static final long serialVersionUID = 4733507257027482630L;
+                    private static final long serialVersionUID = 6037128998165026643L;
                     {
                         put( "Authorization", authorizationHeader);
                         put( "user-agent", "APIMATIC 2.0" );
                         put( "accept", "application/json" );
-                        put( "content-type", "application/json" );
                     }
                 };
 
                 //prepare and invoke the API call request to fetch the response
-                HttpRequest _request;
-                try {
-                    _request = getClientInstance().postBody(_queryUrl, _headers, APIHelper.serialize(body));
-                } catch (JsonProcessingException jsonProcessingException) {
-                    //let the caller know of the error
-                    callBack.onFailure(null, jsonProcessingException);
-                    return;
-                }
+                final HttpRequest _request = getClientInstance().get(_queryUrl, _headers, null);
+
                 //invoke the callback before request if its not null
                 if (getHttpCallBack() != null)
                 {
@@ -252,252 +528,8 @@ public class PayWithMilesController extends BaseController {
 
                             //extract result from the http response
                             String _responseBody = ((HttpStringResponse)_response).getBody();
-                            CompleteMilePaymentResponse _result = APIHelper.deserialize(_responseBody,
-                                                        new TypeReference<CompleteMilePaymentResponse>(){});
-
-                            //let the caller know of the success
-                            callBack.onSuccess(_context, _result);
-                        } catch (APIException error) {
-                            //let the caller know of the error
-                            callBack.onFailure(_context, error);
-                        } catch (IOException ioException) {
-                            //let the caller know of the caught IO Exception
-                            callBack.onFailure(_context, ioException);
-                        } catch (Exception exception) {
-                            //let the caller know of the caught Exception
-                            callBack.onFailure(_context, exception);
-                        }
-                    }
-                    public void onFailure(HttpContext _context, Throwable _error) {
-                        //invoke the callback after response if its not null
-                        if (getHttpCallBack() != null)
-                        {
-                            getHttpCallBack().OnAfterResponse(_context);
-                        }
-
-                        //let the caller know of the failure
-                        callBack.onFailure(_context, _error);
-                    }
-                });
-            }
-        };
-
-        //execute async using thread pool
-        APIHelper.getScheduler().execute(_responseTask);
-    }
-
-    /**
-     * In order to cancel payment with miles you can use this API. It allows to cancel payment only related GSM and terminal ID numbers.
-     * You can try this API with configuring client parameters in Console Tab below. Test OAuthClientId is 552698b91cae424b9b3ddee14eea6faf564f1b5fb7764854b73b2763e0e68c66
-     * and OAuthClientSecret is d0a8b00a3d754ea5a013465bcc23f6efa89e9dfb080a4f4eb460e3306653d92b
-     * @param    body    Required parameter: The body of the request.
-     * @return    Returns the CancelMilePaymentResponse response from the API call 
-     */
-    public CancelMilePaymentResponse createCancelMilePayment(
-                final CancelMilePaymentRequest body
-    ) throws Throwable {
-        APICallBackCatcher<CancelMilePaymentResponse> callback = new APICallBackCatcher<CancelMilePaymentResponse>();
-        createCancelMilePaymentAsync(body, callback);
-        if(!callback.isSuccess())
-            throw callback.getError();
-        return callback.getResult();
-    }
-
-    /**
-     * In order to cancel payment with miles you can use this API. It allows to cancel payment only related GSM and terminal ID numbers.
-     * You can try this API with configuring client parameters in Console Tab below. Test OAuthClientId is 552698b91cae424b9b3ddee14eea6faf564f1b5fb7764854b73b2763e0e68c66
-     * and OAuthClientSecret is d0a8b00a3d754ea5a013465bcc23f6efa89e9dfb080a4f4eb460e3306653d92b
-     * @param    body    Required parameter: The body of the request.
-     * @return    Returns the void response from the API call 
-     */
-    public void createCancelMilePaymentAsync(
-                final CancelMilePaymentRequest body,
-                final APICallBack<CancelMilePaymentResponse> callBack
-    ) {
-        Runnable _responseTask = new Runnable() {
-            public void run() {
-                //the base uri for api requests
-                String _baseUri = Configuration.getBaseUri();
-
-                //prepare query string for API call
-                StringBuilder _queryBuilder = new StringBuilder(_baseUri);
-                _queryBuilder.append("/v1/pos/CancelBonusPayment");
-                //validate and preprocess url
-                String _queryUrl = APIHelper.cleanUrl(_queryBuilder);
-
-                final String authorizationHeader;
-                try {
-                    authorizationHeader = OAuthManager.getInstance().getAuthorizationHeader();
-                } catch (Throwable e) {
-                   callBack.onFailure(null, e);
-                   return;
-                }
-                //load all headers for the outgoing API request
-                Map<String, String> _headers = new HashMap<String, String>() {
-                    private static final long serialVersionUID = 4691780511360930936L;
-                    {
-                        put( "Authorization", authorizationHeader);
-                        put( "user-agent", "APIMATIC 2.0" );
-                        put( "accept", "application/json" );
-                        put( "content-type", "application/json" );
-                    }
-                };
-
-                //prepare and invoke the API call request to fetch the response
-                HttpRequest _request;
-                try {
-                    _request = getClientInstance().postBody(_queryUrl, _headers, APIHelper.serialize(body));
-                } catch (JsonProcessingException jsonProcessingException) {
-                    //let the caller know of the error
-                    callBack.onFailure(null, jsonProcessingException);
-                    return;
-                }
-                //invoke the callback before request if its not null
-                if (getHttpCallBack() != null)
-                {
-                    getHttpCallBack().OnBeforeRequest(_request);
-                }
-
-                //invoke request and get response
-                getClientInstance().executeAsStringAsync(_request, new APICallBack<HttpResponse>() {
-                    public void onSuccess(HttpContext _context, HttpResponse _response) {
-                        try {
-
-                            //invoke the callback after response if its not null
-                            if (getHttpCallBack() != null)	
-                            {
-                                getHttpCallBack().OnAfterResponse(_context);
-                            }
-
-                            //handle errors defined at the API level
-                            validateResponse(_response, _context);
-
-                            //extract result from the http response
-                            String _responseBody = ((HttpStringResponse)_response).getBody();
-                            CancelMilePaymentResponse _result = APIHelper.deserialize(_responseBody,
-                                                        new TypeReference<CancelMilePaymentResponse>(){});
-
-                            //let the caller know of the success
-                            callBack.onSuccess(_context, _result);
-                        } catch (APIException error) {
-                            //let the caller know of the error
-                            callBack.onFailure(_context, error);
-                        } catch (IOException ioException) {
-                            //let the caller know of the caught IO Exception
-                            callBack.onFailure(_context, ioException);
-                        } catch (Exception exception) {
-                            //let the caller know of the caught Exception
-                            callBack.onFailure(_context, exception);
-                        }
-                    }
-                    public void onFailure(HttpContext _context, Throwable _error) {
-                        //invoke the callback after response if its not null
-                        if (getHttpCallBack() != null)
-                        {
-                            getHttpCallBack().OnAfterResponse(_context);
-                        }
-
-                        //let the caller know of the failure
-                        callBack.onFailure(_context, _error);
-                    }
-                });
-            }
-        };
-
-        //execute async using thread pool
-        APIHelper.getScheduler().execute(_responseTask);
-    }
-
-    /**
-     * Before cancelling the payment with Miles this API is used to list the related sale.
-     * You can try this API with configuring client parameters in Console Tab below. Test OAuthClientId is 552698b91cae424b9b3ddee14eea6faf564f1b5fb7764854b73b2763e0e68c66
-     * and OAuthClientSecret is d0a8b00a3d754ea5a013465bcc23f6efa89e9dfb080a4f4eb460e3306653d92b
-     * @param    body    Required parameter: The body of the request.
-     * @return    Returns the GetBonusProvisionsResponse response from the API call 
-     */
-    public GetBonusProvisionsResponse createGetMileProvisions(
-                final GetMileProvisionsRequest body
-    ) throws Throwable {
-        APICallBackCatcher<GetBonusProvisionsResponse> callback = new APICallBackCatcher<GetBonusProvisionsResponse>();
-        createGetMileProvisionsAsync(body, callback);
-        if(!callback.isSuccess())
-            throw callback.getError();
-        return callback.getResult();
-    }
-
-    /**
-     * Before cancelling the payment with Miles this API is used to list the related sale.
-     * You can try this API with configuring client parameters in Console Tab below. Test OAuthClientId is 552698b91cae424b9b3ddee14eea6faf564f1b5fb7764854b73b2763e0e68c66
-     * and OAuthClientSecret is d0a8b00a3d754ea5a013465bcc23f6efa89e9dfb080a4f4eb460e3306653d92b
-     * @param    body    Required parameter: The body of the request.
-     * @return    Returns the void response from the API call 
-     */
-    public void createGetMileProvisionsAsync(
-                final GetMileProvisionsRequest body,
-                final APICallBack<GetBonusProvisionsResponse> callBack
-    ) {
-        Runnable _responseTask = new Runnable() {
-            public void run() {
-                //the base uri for api requests
-                String _baseUri = Configuration.getBaseUri();
-
-                //prepare query string for API call
-                StringBuilder _queryBuilder = new StringBuilder(_baseUri);
-                _queryBuilder.append("/v1/pos/GetBonusProvisions");
-                //validate and preprocess url
-                String _queryUrl = APIHelper.cleanUrl(_queryBuilder);
-
-                final String authorizationHeader;
-                try {
-                    authorizationHeader = OAuthManager.getInstance().getAuthorizationHeader();
-                } catch (Throwable e) {
-                   callBack.onFailure(null, e);
-                   return;
-                }
-                //load all headers for the outgoing API request
-                Map<String, String> _headers = new HashMap<String, String>() {
-                    private static final long serialVersionUID = 5474906101828134769L;
-                    {
-                        put( "Authorization", authorizationHeader);
-                        put( "user-agent", "APIMATIC 2.0" );
-                        put( "accept", "application/json" );
-                        put( "content-type", "application/json" );
-                    }
-                };
-
-                //prepare and invoke the API call request to fetch the response
-                HttpRequest _request;
-                try {
-                    _request = getClientInstance().postBody(_queryUrl, _headers, APIHelper.serialize(body));
-                } catch (JsonProcessingException jsonProcessingException) {
-                    //let the caller know of the error
-                    callBack.onFailure(null, jsonProcessingException);
-                    return;
-                }
-                //invoke the callback before request if its not null
-                if (getHttpCallBack() != null)
-                {
-                    getHttpCallBack().OnBeforeRequest(_request);
-                }
-
-                //invoke request and get response
-                getClientInstance().executeAsStringAsync(_request, new APICallBack<HttpResponse>() {
-                    public void onSuccess(HttpContext _context, HttpResponse _response) {
-                        try {
-
-                            //invoke the callback after response if its not null
-                            if (getHttpCallBack() != null)	
-                            {
-                                getHttpCallBack().OnAfterResponse(_context);
-                            }
-
-                            //handle errors defined at the API level
-                            validateResponse(_response, _context);
-
-                            //extract result from the http response
-                            String _responseBody = ((HttpStringResponse)_response).getBody();
-                            GetBonusProvisionsResponse _result = APIHelper.deserialize(_responseBody,
-                                                        new TypeReference<GetBonusProvisionsResponse>(){});
+                            GetMileProvisionsResponse _result = APIHelper.deserialize(_responseBody,
+                                                        new TypeReference<GetMileProvisionsResponse>(){});
 
                             //let the caller know of the success
                             callBack.onSuccess(_context, _result);

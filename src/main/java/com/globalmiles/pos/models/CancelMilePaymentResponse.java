@@ -11,21 +11,21 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class CancelMilePaymentResponse 
         implements java.io.Serializable {
-    private static final long serialVersionUID = 5521013597462609701L;
+    private static final long serialVersionUID = 8630520235686211123L;
     private int returnCode;
     private String returnDesc;
     /** GETTER
-     * 0  Success, 1 and bigger than 1 unsuccessful
+     * 0  Success, 1 and bigger than 1 unsuccessful.
      */
-    @JsonGetter("returnCode")
+    @JsonGetter("return_code")
     public int getReturnCode ( ) { 
         return this.returnCode;
     }
     
     /** SETTER
-     * 0  Success, 1 and bigger than 1 unsuccessful
+     * 0  Success, 1 and bigger than 1 unsuccessful.
      */
-    @JsonSetter("returnCode")
+    @JsonSetter("return_code")
     public void setReturnCode (int value) { 
         this.returnCode = value;
     }
@@ -33,7 +33,7 @@ public class CancelMilePaymentResponse
     /** GETTER
      * if success return is empty. if unsuccessful it returns error message
      */
-    @JsonGetter("returnDesc")
+    @JsonGetter("return_desc")
     public String getReturnDesc ( ) { 
         return this.returnDesc;
     }
@@ -41,7 +41,7 @@ public class CancelMilePaymentResponse
     /** SETTER
      * if success return is empty. if unsuccessful it returns error message
      */
-    @JsonSetter("returnDesc")
+    @JsonSetter("return_desc")
     public void setReturnDesc (String value) { 
         this.returnDesc = value;
     }

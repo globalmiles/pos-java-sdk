@@ -11,90 +11,107 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class GetCustomerInfoResponse 
         implements java.io.Serializable {
-    private static final long serialVersionUID = 5671392532134245639L;
+    private static final long serialVersionUID = -4611362800414048015L;
     private int returnCode;
     private String returnDesc;
     private int recognitionId;
-    private int availablePoint;
-    private int loyaltyDiscountedPrice;
+    private double availableMilesAsAmount;
+    private double loyaltyDiscountedTotalAmount;
+    private String currency;
     /** GETTER
-     * 0  Success, 1 and bigger than 1 unsuccessful
+     * 0  Success, 1 and bigger than 1 unsuccessful.
      */
-    @JsonGetter("returnCode")
+    @JsonGetter("return_code")
     public int getReturnCode ( ) { 
         return this.returnCode;
     }
     
     /** SETTER
-     * 0  Success, 1 and bigger than 1 unsuccessful
+     * 0  Success, 1 and bigger than 1 unsuccessful.
      */
-    @JsonSetter("returnCode")
+    @JsonSetter("return_code")
     public void setReturnCode (int value) { 
         this.returnCode = value;
     }
  
     /** GETTER
-     * if success return is empty. if unsuccessful it returns error message
+     * if success return is empty. if unsuccessful it returns error message.
      */
-    @JsonGetter("returnDesc")
+    @JsonGetter("return_desc")
     public String getReturnDesc ( ) { 
         return this.returnDesc;
     }
     
     /** SETTER
-     * if success return is empty. if unsuccessful it returns error message
+     * if success return is empty. if unsuccessful it returns error message.
      */
-    @JsonSetter("returnDesc")
+    @JsonSetter("return_desc")
     public void setReturnDesc (String value) { 
         this.returnDesc = value;
     }
  
     /** GETTER
-     * Session based user identification number
+     * Session based user identification number.
      */
-    @JsonGetter("recognitionId")
+    @JsonGetter("recognition_id")
     public int getRecognitionId ( ) { 
         return this.recognitionId;
     }
     
     /** SETTER
-     * Session based user identification number
+     * Session based user identification number.
      */
-    @JsonSetter("recognitionId")
+    @JsonSetter("recognition_id")
     public void setRecognitionId (int value) { 
         this.recognitionId = value;
     }
  
     /** GETTER
-     * The available points that the customer can use in this transaction is in USD which is calculated from customer's current miles. EX: 12.56 USD == 1256
+     * The available miles as an amount that the customer can use in this transaction which is calculated from customer's current miles.
      */
-    @JsonGetter("availablePoint")
-    public int getAvailablePoint ( ) { 
-        return this.availablePoint;
+    @JsonGetter("available_miles_as_amount")
+    public double getAvailableMilesAsAmount ( ) { 
+        return this.availableMilesAsAmount;
     }
     
     /** SETTER
-     * The available points that the customer can use in this transaction is in USD which is calculated from customer's current miles. EX: 12.56 USD == 1256
+     * The available miles as an amount that the customer can use in this transaction which is calculated from customer's current miles.
      */
-    @JsonSetter("availablePoint")
-    public void setAvailablePoint (int value) { 
-        this.availablePoint = value;
+    @JsonSetter("available_miles_as_amount")
+    public void setAvailableMilesAsAmount (double value) { 
+        this.availableMilesAsAmount = value;
     }
  
     /** GETTER
-     * Loyalty discounted price ex: 90.50 USD == 9050
+     * Loyalty discounted total amount.
      */
-    @JsonGetter("loyaltyDiscountedPrice")
-    public int getLoyaltyDiscountedPrice ( ) { 
-        return this.loyaltyDiscountedPrice;
+    @JsonGetter("loyalty_discounted_total_amount")
+    public double getLoyaltyDiscountedTotalAmount ( ) { 
+        return this.loyaltyDiscountedTotalAmount;
     }
     
     /** SETTER
-     * Loyalty discounted price ex: 90.50 USD == 9050
+     * Loyalty discounted total amount.
      */
-    @JsonSetter("loyaltyDiscountedPrice")
-    public void setLoyaltyDiscountedPrice (int value) { 
-        this.loyaltyDiscountedPrice = value;
+    @JsonSetter("loyalty_discounted_total_amount")
+    public void setLoyaltyDiscountedTotalAmount (double value) { 
+        this.loyaltyDiscountedTotalAmount = value;
+    }
+ 
+    /** GETTER
+     * ISO-4217 3-letter currency code.
+     */
+    @JsonGetter("currency")
+    public String getCurrency ( ) { 
+        return this.currency;
+    }
+    
+    /** SETTER
+     * ISO-4217 3-letter currency code.
+     */
+    @JsonSetter("currency")
+    public void setCurrency (String value) { 
+        this.currency = value;
     }
  
 }

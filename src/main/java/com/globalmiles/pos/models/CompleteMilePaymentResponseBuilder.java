@@ -19,7 +19,7 @@ public class CompleteMilePaymentResponseBuilder {
     }
 
     /**
-     * 0  Success, 1 and bigger than 1 unsuccessful
+     * 0  Success, 1 and bigger than 1 unsuccessful.
      */
     public CompleteMilePaymentResponseBuilder returnCode(int returnCode) {
         completeMilePaymentResponse.setReturnCode(returnCode);
@@ -27,7 +27,7 @@ public class CompleteMilePaymentResponseBuilder {
     }
 
     /**
-     * if success return is empty. if unsuccessful it returns error message
+     * if success return is empty. if unsuccessful it returns error message.
      */
     public CompleteMilePaymentResponseBuilder returnDesc(String returnDesc) {
         completeMilePaymentResponse.setReturnDesc(returnDesc);

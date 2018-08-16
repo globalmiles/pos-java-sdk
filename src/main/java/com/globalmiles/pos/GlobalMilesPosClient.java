@@ -10,11 +10,11 @@ import com.globalmiles.pos.http.client.HttpClient;
 
 public class GlobalMilesPosClient {
     /**
-     * Singleton access to EarnMiles controller
-     * @return	Returns the EarnMilesController instance 
+     * Singleton access to PayWithMiles controller
+     * @return	Returns the PayWithMilesController instance 
      */
-    public EarnMilesController getEarnMiles() {
-        return EarnMilesController.getInstance();
+    public PayWithMilesController getPayWithMiles() {
+        return PayWithMilesController.getInstance();
     }
 
     /**
@@ -26,19 +26,19 @@ public class GlobalMilesPosClient {
     }
 
     /**
+     * Singleton access to EarnMiles controller
+     * @return	Returns the EarnMilesController instance 
+     */
+    public EarnMilesController getEarnMiles() {
+        return EarnMilesController.getInstance();
+    }
+
+    /**
      * Singleton access to Common controller
      * @return	Returns the CommonController instance 
      */
     public CommonController getCommon() {
         return CommonController.getInstance();
-    }
-
-    /**
-     * Singleton access to PayWithMiles controller
-     * @return	Returns the PayWithMilesController instance 
-     */
-    public PayWithMilesController getPayWithMiles() {
-        return PayWithMilesController.getInstance();
     }
 
     /**

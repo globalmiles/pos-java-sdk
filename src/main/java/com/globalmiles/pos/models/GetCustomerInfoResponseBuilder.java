@@ -19,7 +19,7 @@ public class GetCustomerInfoResponseBuilder {
     }
 
     /**
-     * 0  Success, 1 and bigger than 1 unsuccessful
+     * 0  Success, 1 and bigger than 1 unsuccessful.
      */
     public GetCustomerInfoResponseBuilder returnCode(int returnCode) {
         getCustomerInfoResponse.setReturnCode(returnCode);
@@ -27,7 +27,7 @@ public class GetCustomerInfoResponseBuilder {
     }
 
     /**
-     * if success return is empty. if unsuccessful it returns error message
+     * if success return is empty. if unsuccessful it returns error message.
      */
     public GetCustomerInfoResponseBuilder returnDesc(String returnDesc) {
         getCustomerInfoResponse.setReturnDesc(returnDesc);
@@ -35,7 +35,7 @@ public class GetCustomerInfoResponseBuilder {
     }
 
     /**
-     * Session based user identification number
+     * Session based user identification number.
      */
     public GetCustomerInfoResponseBuilder recognitionId(int recognitionId) {
         getCustomerInfoResponse.setRecognitionId(recognitionId);
@@ -43,18 +43,26 @@ public class GetCustomerInfoResponseBuilder {
     }
 
     /**
-     * The available points that the customer can use in this transaction is in USD which is calculated from customer's current miles. EX: 12.56 USD == 1256
+     * The available miles as an amount that the customer can use in this transaction which is calculated from customer's current miles.
      */
-    public GetCustomerInfoResponseBuilder availablePoint(int availablePoint) {
-        getCustomerInfoResponse.setAvailablePoint(availablePoint);
+    public GetCustomerInfoResponseBuilder availableMilesAsAmount(double availableMilesAsAmount) {
+        getCustomerInfoResponse.setAvailableMilesAsAmount(availableMilesAsAmount);
         return this;
     }
 
     /**
-     * Loyalty discounted price ex: 90.50 USD == 9050
+     * Loyalty discounted total amount.
      */
-    public GetCustomerInfoResponseBuilder loyaltyDiscountedPrice(int loyaltyDiscountedPrice) {
-        getCustomerInfoResponse.setLoyaltyDiscountedPrice(loyaltyDiscountedPrice);
+    public GetCustomerInfoResponseBuilder loyaltyDiscountedTotalAmount(double loyaltyDiscountedTotalAmount) {
+        getCustomerInfoResponse.setLoyaltyDiscountedTotalAmount(loyaltyDiscountedTotalAmount);
+        return this;
+    }
+
+    /**
+     * ISO-4217 3-letter currency code.
+     */
+    public GetCustomerInfoResponseBuilder currency(String currency) {
+        getCustomerInfoResponse.setCurrency(currency);
         return this;
     }
     /**

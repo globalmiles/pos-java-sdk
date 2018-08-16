@@ -18,13 +18,27 @@ public class PaymentBuilder {
         payment = new Payment();
     }
 
-    public PaymentBuilder payAmount(int payAmount) {
+    /**
+     * Amount of the payment.
+     */
+    public PaymentBuilder payAmount(double payAmount) {
         payment.setPayAmount(payAmount);
         return this;
     }
 
-    public PaymentBuilder paymentType(int paymentType) {
+    /**
+     * Type of the payment.
+     */
+    public PaymentBuilder paymentType(String paymentType) {
         payment.setPaymentType(paymentType);
+        return this;
+    }
+
+    /**
+     * Provision ID for pay with miles.
+     */
+    public PaymentBuilder milesPaymentProvisionId(Integer milesPaymentProvisionId) {
+        payment.setMilesPaymentProvisionId(milesPaymentProvisionId);
         return this;
     }
     /**

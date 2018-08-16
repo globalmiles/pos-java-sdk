@@ -11,39 +11,22 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class CancelMilePaymentRequest 
         implements java.io.Serializable {
-    private static final long serialVersionUID = 4663520126149948153L;
-    private String bonusPaymentProvisionId;
-    private String oKCSicilNo;
+    private static final long serialVersionUID = 102560435036281197L;
+    private String terminalId;
     /** GETTER
-     * Provision ID
+     * Terminal ID.
      */
-    @JsonGetter("bonusPaymentProvisionId")
-    public String getBonusPaymentProvisionId ( ) { 
-        return this.bonusPaymentProvisionId;
+    @JsonGetter("terminal_id")
+    public String getTerminalId ( ) { 
+        return this.terminalId;
     }
     
     /** SETTER
-     * Provision ID
+     * Terminal ID.
      */
-    @JsonSetter("bonusPaymentProvisionId")
-    public void setBonusPaymentProvisionId (String value) { 
-        this.bonusPaymentProvisionId = value;
-    }
- 
-    /** GETTER
-     * Terminal code.
-     */
-    @JsonGetter("OKCSicilNo")
-    public String getOKCSicilNo ( ) { 
-        return this.oKCSicilNo;
-    }
-    
-    /** SETTER
-     * Terminal code.
-     */
-    @JsonSetter("OKCSicilNo")
-    public void setOKCSicilNo (String value) { 
-        this.oKCSicilNo = value;
+    @JsonSetter("terminal_id")
+    public void setTerminalId (String value) { 
+        this.terminalId = value;
     }
  
 }

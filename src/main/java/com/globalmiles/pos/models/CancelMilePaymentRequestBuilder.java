@@ -19,18 +19,10 @@ public class CancelMilePaymentRequestBuilder {
     }
 
     /**
-     * Provision ID
+     * Terminal ID.
      */
-    public CancelMilePaymentRequestBuilder bonusPaymentProvisionId(String bonusPaymentProvisionId) {
-        cancelMilePaymentRequest.setBonusPaymentProvisionId(bonusPaymentProvisionId);
-        return this;
-    }
-
-    /**
-     * Terminal code.
-     */
-    public CancelMilePaymentRequestBuilder oKCSicilNo(String oKCSicilNo) {
-        cancelMilePaymentRequest.setOKCSicilNo(oKCSicilNo);
+    public CancelMilePaymentRequestBuilder terminalId(String terminalId) {
+        cancelMilePaymentRequest.setTerminalId(terminalId);
         return this;
     }
     /**

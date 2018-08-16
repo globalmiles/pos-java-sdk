@@ -19,47 +19,79 @@ public class TransactionResultRequestBuilder {
     }
 
     /**
-     * Total Receipt Amount  ex:12.35 TL == 1235
+     * Total receipt amount.
      */
-    public TransactionResultRequestBuilder totalReceiptAmount(int totalReceiptAmount) {
+    public TransactionResultRequestBuilder totalReceiptAmount(double totalReceiptAmount) {
         transactionResultRequest.setTotalReceiptAmount(totalReceiptAmount);
         return this;
     }
 
     /**
-     * Total VAT Amount  ex: 0.85 TL == 85
+     * Total tax amount.
      */
-    public TransactionResultRequestBuilder totalVATAmount(int totalVATAmount) {
-        transactionResultRequest.setTotalVATAmount(totalVATAmount);
+    public TransactionResultRequestBuilder totalVatAmount(double totalVatAmount) {
+        transactionResultRequest.setTotalVatAmount(totalVatAmount);
         return this;
     }
 
     /**
-     * Terminal code.
+     * ISO-4217 3-letter currency code.
      */
-    public TransactionResultRequestBuilder oKCSicilNo(String oKCSicilNo) {
-        transactionResultRequest.setOKCSicilNo(oKCSicilNo);
+    public TransactionResultRequestBuilder currency(String currency) {
+        transactionResultRequest.setCurrency(currency);
         return this;
     }
 
     /**
-     * ReceiptNo
+     * Partner ID.
      */
-    public TransactionResultRequestBuilder receiptNo(int receiptNo) {
-        transactionResultRequest.setReceiptNo(receiptNo);
+    public TransactionResultRequestBuilder partnerId(int partnerId) {
+        transactionResultRequest.setPartnerId(partnerId);
         return this;
     }
 
     /**
-     * Z no
+     * Branch ID.
      */
-    public TransactionResultRequestBuilder zno(int zno) {
-        transactionResultRequest.setZno(zno);
+    public TransactionResultRequestBuilder branchId(int branchId) {
+        transactionResultRequest.setBranchId(branchId);
         return this;
     }
 
     /**
-     * Session based Identification Number .
+     * Terminal ID.
+     */
+    public TransactionResultRequestBuilder terminalId(String terminalId) {
+        transactionResultRequest.setTerminalId(terminalId);
+        return this;
+    }
+
+    /**
+     * Receipt number.
+     */
+    public TransactionResultRequestBuilder receiptNumber(String receiptNumber) {
+        transactionResultRequest.setReceiptNumber(receiptNumber);
+        return this;
+    }
+
+    /**
+     * Extra number 1.
+     */
+    public TransactionResultRequestBuilder extraNumber1(String extraNumber1) {
+        transactionResultRequest.setExtraNumber1(extraNumber1);
+        return this;
+    }
+
+    /**
+     * Extra number 2.
+     */
+    public TransactionResultRequestBuilder extraNumber2(String extraNumber2) {
+        transactionResultRequest.setExtraNumber2(extraNumber2);
+        return this;
+    }
+
+    /**
+     * Session based identification number.
      */
     public TransactionResultRequestBuilder recognitionId(int recognitionId) {
         transactionResultRequest.setRecognitionId(recognitionId);
@@ -67,15 +99,7 @@ public class TransactionResultRequestBuilder {
     }
 
     /**
-     * Eku no (Electronic Journal)
-     */
-    public TransactionResultRequestBuilder ekuNo(int ekuNo) {
-        transactionResultRequest.setEkuNo(ekuNo);
-        return this;
-    }
-
-    /**
-     * Receipt Type (Invoice , Food ..)
+     * Receipt type (Invoice , Food ..)
      */
     public TransactionResultRequestBuilder receiptType(String receiptType) {
         transactionResultRequest.setReceiptType(receiptType);
@@ -83,7 +107,7 @@ public class TransactionResultRequestBuilder {
     }
 
     /**
-     * It should be  GGAAYYYYSSDD formatted.
+     * It should be DDMMYYYYHHMM formatted.
      */
     public TransactionResultRequestBuilder receiptDateTime(String receiptDateTime) {
         transactionResultRequest.setReceiptDateTime(receiptDateTime);
@@ -91,7 +115,7 @@ public class TransactionResultRequestBuilder {
     }
 
     /**
-     * Invoice detail info
+     * Invoice details.
      */
     public TransactionResultRequestBuilder invoiceInfo(Invoice invoiceInfo) {
         transactionResultRequest.setInvoiceInfo(invoiceInfo);
@@ -99,15 +123,26 @@ public class TransactionResultRequestBuilder {
     }
 
     /**
-     * Payment Detail Block
+     * Payment details.
      */
     public TransactionResultRequestBuilder payments(List<Payment> payments) {
         transactionResultRequest.setPayments(payments);
         return this;
     }
 
+    /**
+     * Discount details.
+     */
     public TransactionResultRequestBuilder discounts(List<Discount> discounts) {
         transactionResultRequest.setDiscounts(discounts);
+        return this;
+    }
+
+    /**
+     * Extra data.
+     */
+    public TransactionResultRequestBuilder extraData(String extraData) {
+        transactionResultRequest.setExtraData(extraData);
         return this;
     }
     /**

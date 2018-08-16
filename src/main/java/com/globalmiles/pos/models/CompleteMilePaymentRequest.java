@@ -11,56 +11,39 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class CompleteMilePaymentRequest 
         implements java.io.Serializable {
-    private static final long serialVersionUID = 5463716355304426236L;
-    private String bonusPaymentProvisionId;
-    private String oKCSicilNo;
-    private String oTP;
+    private static final long serialVersionUID = 3571759528671590136L;
+    private String terminalId;
+    private String otp;
     /** GETTER
-     * Provision ID
+     * Terminal ID.
      */
-    @JsonGetter("bonusPaymentProvisionId")
-    public String getBonusPaymentProvisionId ( ) { 
-        return this.bonusPaymentProvisionId;
+    @JsonGetter("terminal_id")
+    public String getTerminalId ( ) { 
+        return this.terminalId;
     }
     
     /** SETTER
-     * Provision ID
+     * Terminal ID.
      */
-    @JsonSetter("bonusPaymentProvisionId")
-    public void setBonusPaymentProvisionId (String value) { 
-        this.bonusPaymentProvisionId = value;
+    @JsonSetter("terminal_id")
+    public void setTerminalId (String value) { 
+        this.terminalId = value;
     }
  
     /** GETTER
-     * Terminal code.
+     * One time password that sends to customer phone.
      */
-    @JsonGetter("OKCSicilNo")
-    public String getOKCSicilNo ( ) { 
-        return this.oKCSicilNo;
+    @JsonGetter("otp")
+    public String getOtp ( ) { 
+        return this.otp;
     }
     
     /** SETTER
-     * Terminal code.
+     * One time password that sends to customer phone.
      */
-    @JsonSetter("OKCSicilNo")
-    public void setOKCSicilNo (String value) { 
-        this.oKCSicilNo = value;
-    }
- 
-    /** GETTER
-     * One time password that sends to customer phone
-     */
-    @JsonGetter("OTP")
-    public String getOTP ( ) { 
-        return this.oTP;
-    }
-    
-    /** SETTER
-     * One time password that sends to customer phone
-     */
-    @JsonSetter("OTP")
-    public void setOTP (String value) { 
-        this.oTP = value;
+    @JsonSetter("otp")
+    public void setOtp (String value) { 
+        this.otp = value;
     }
  
 }
