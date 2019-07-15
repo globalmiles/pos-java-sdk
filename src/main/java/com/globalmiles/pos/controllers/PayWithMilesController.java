@@ -22,9 +22,9 @@ import com.globalmiles.pos.http.response.HttpStringResponse;
 import com.globalmiles.pos.http.client.APICallBack;
 import com.globalmiles.pos.controllers.syncwrapper.APICallBackCatcher;
 
-public class PayWithMilesController extends BaseController {    
+public class PayWithMilesController extends BaseController {
     //private static variables for the singleton pattern
-    private static Object syncObject = new Object();
+    private static final Object syncObject = new Object();
     private static PayWithMilesController instance = null;
 
     /**
@@ -32,9 +32,11 @@ public class PayWithMilesController extends BaseController {
      * @return The singleton instance of the PayWithMilesController class 
      */
     public static PayWithMilesController getInstance() {
-        synchronized (syncObject) {
-            if (null == instance) {
-                instance = new PayWithMilesController();
+        if (null == instance) {
+            synchronized (syncObject) {
+                if (null == instance) {
+                    instance = new PayWithMilesController();
+                }
             }
         }
         return instance;
@@ -52,11 +54,12 @@ public class PayWithMilesController extends BaseController {
                 final int milesPaymentProvisionId,
                 final CancelMilePaymentRequest body
     ) throws Throwable {
-        APICallBackCatcher<CancelMilePaymentResponse> callback = new APICallBackCatcher<CancelMilePaymentResponse>();
-        deleteCancelMilePaymentAsync(milesPaymentProvisionId, body, callback);
-        if(!callback.isSuccess())
-            throw callback.getError();
-        return callback.getResult();
+
+        HttpRequest _request = _buildDeleteCancelMilePaymentRequest(milesPaymentProvisionId, body);
+        HttpResponse _response = getClientInstance().executeAsString(_request);
+        HttpContext _context = new HttpContext(_request, _response);
+
+        return _handleDeleteCancelMilePaymentResponse(_context);
     }
 
     /**
@@ -74,103 +77,106 @@ public class PayWithMilesController extends BaseController {
     ) {
         Runnable _responseTask = new Runnable() {
             public void run() {
-                //the base uri for api requests
-                String _baseUri = Configuration.getBaseUri();
 
-                //prepare query string for API call
-                StringBuilder _queryBuilder = new StringBuilder(_baseUri);
-                _queryBuilder.append("/v2/pos/payments/{miles_payment_provision_id}");
-
-                //process template parameters
-                APIHelper.appendUrlWithTemplateParameters(_queryBuilder, new HashMap<String, Object>() {
-                    private static final long serialVersionUID = 1662038571660337302L;
-                    {
-                        put( "miles_payment_provision_id", milesPaymentProvisionId );
-                    }});
-                //validate and preprocess url
-                String _queryUrl = APIHelper.cleanUrl(_queryBuilder);
-
-                final String authorizationHeader;
-                try {
-                    authorizationHeader = OAuthManager.getInstance().getAuthorizationHeader();
-                } catch (Throwable e) {
-                   callBack.onFailure(null, e);
-                   return;
-                }
-                //load all headers for the outgoing API request
-                Map<String, String> _headers = new HashMap<String, String>() {
-                    private static final long serialVersionUID = 6809502995245157700L;
-                    {
-                        put( "Authorization", authorizationHeader);
-                        put( "user-agent", "APIMATIC 2.0" );
-                        put( "accept", "application/json" );
-                        put( "content-type", "application/json" );
-                    }
-                };
-
-                //prepare and invoke the API call request to fetch the response
                 HttpRequest _request;
                 try {
-                    _request = getClientInstance().deleteBody(_queryUrl, _headers, APIHelper.serialize(body));
-                } catch (JsonProcessingException jsonProcessingException) {
-                    //let the caller know of the error
-                    callBack.onFailure(null, jsonProcessingException);
+                    _request = _buildDeleteCancelMilePaymentRequest(milesPaymentProvisionId, body);
+                } catch (Exception e) {
+                    callBack.onFailure(null, e);
                     return;
                 }
-                //invoke the callback before request if its not null
-                if (getHttpCallBack() != null)
-                {
-                    getHttpCallBack().OnBeforeRequest(_request);
-                }
 
-                //invoke request and get response
+                // Invoke request and get response
                 getClientInstance().executeAsStringAsync(_request, new APICallBack<HttpResponse>() {
                     public void onSuccess(HttpContext _context, HttpResponse _response) {
                         try {
-
-                            //invoke the callback after response if its not null
-                            if (getHttpCallBack() != null)	
-                            {
-                                getHttpCallBack().OnAfterResponse(_context);
-                            }
-
-                            //handle errors defined at the API level
-                            validateResponse(_response, _context);
-
-                            //extract result from the http response
-                            String _responseBody = ((HttpStringResponse)_response).getBody();
-                            CancelMilePaymentResponse _result = APIHelper.deserialize(_responseBody,
-                                                        new TypeReference<CancelMilePaymentResponse>(){});
-
-                            //let the caller know of the success
-                            callBack.onSuccess(_context, _result);
-                        } catch (APIException error) {
-                            //let the caller know of the error
-                            callBack.onFailure(_context, error);
-                        } catch (IOException ioException) {
-                            //let the caller know of the caught IO Exception
-                            callBack.onFailure(_context, ioException);
-                        } catch (Exception exception) {
-                            //let the caller know of the caught Exception
-                            callBack.onFailure(_context, exception);
+                            CancelMilePaymentResponse returnValue = _handleDeleteCancelMilePaymentResponse(_context);
+                            callBack.onSuccess(_context, returnValue);
+                        } catch (Exception e) {
+                            callBack.onFailure(_context, e);
                         }
                     }
-                    public void onFailure(HttpContext _context, Throwable _error) {
-                        //invoke the callback after response if its not null
-                        if (getHttpCallBack() != null)
-                        {
-                            getHttpCallBack().OnAfterResponse(_context);
-                        }
 
-                        //let the caller know of the failure
-                        callBack.onFailure(_context, _error);
+                    public void onFailure(HttpContext _context, Throwable _exception) {
+                        // Let the caller know of the failure
+                        callBack.onFailure(_context, _exception);
                     }
                 });
             }
         };
 
-        //execute async using thread pool
+        // Execute async using thread pool
         APIHelper.getScheduler().execute(_responseTask);
+    }
+
+    /**
+     * Builds the HttpRequest object for deleteCancelMilePayment
+     */
+    private HttpRequest _buildDeleteCancelMilePaymentRequest(
+                final int milesPaymentProvisionId,
+                final CancelMilePaymentRequest body) throws IOException, APIException {
+        //the base uri for api requests
+        String _baseUri = Configuration.getBaseUri();
+
+        //prepare query string for API call
+        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v2/pos/payments/{miles_payment_provision_id}");
+
+        //process template parameters
+        Map<String, Object> _templateParameters = new HashMap<String, Object>();
+        _templateParameters.put("miles_payment_provision_id", milesPaymentProvisionId);
+        APIHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters);
+        //validate and preprocess url
+        String _queryUrl = APIHelper.cleanUrl(_queryBuilder);
+
+        String authorizationHeader;
+        try {
+            authorizationHeader = OAuthManager.getInstance().getAuthorizationHeader();
+        } catch (Throwable e) {
+            // TODO Auto-generated catch block
+            throw new APIException(e.getMessage(), null);
+        }
+        //load all headers for the outgoing API request
+        Map<String, String> _headers = new HashMap<String, String>();
+
+        _headers.put( "Authorization", authorizationHeader);
+        _headers.put("user-agent", BaseController.userAgent);
+        _headers.put("accept", "application/json");
+        _headers.put("content-type", "application/json");
+
+
+        //prepare and invoke the API call request to fetch the response
+        HttpRequest _request = getClientInstance().deleteBody(_queryUrl, _headers, APIHelper.serialize(body));
+
+        // Invoke the callback before request if its not null
+        if (getHttpCallBack() != null) {
+            getHttpCallBack().OnBeforeRequest(_request);
+        }
+
+        return _request;
+    }
+
+    /**
+     * Processes the response for deleteCancelMilePayment
+     * @return An object of type void
+     */
+    private CancelMilePaymentResponse _handleDeleteCancelMilePaymentResponse(HttpContext _context)
+            throws APIException, IOException {
+        HttpResponse _response = _context.getResponse();
+
+        //invoke the callback after response if its not null
+        if (getHttpCallBack() != null) {
+            getHttpCallBack().OnAfterResponse(_context);
+        }
+
+        //handle errors defined at the API level
+        validateResponse(_response, _context);
+
+        //extract result from the http response
+        String _responseBody = ((HttpStringResponse)_response).getBody();
+        CancelMilePaymentResponse _result = APIHelper.deserialize(_responseBody,
+                                                        new TypeReference<CancelMilePaymentResponse>(){});
+
+        return _result;
     }
 
     /**
@@ -185,11 +191,12 @@ public class PayWithMilesController extends BaseController {
                 final int milesPaymentProvisionId,
                 final CompleteMilePaymentRequest body
     ) throws Throwable {
-        APICallBackCatcher<CompleteMilePaymentResponse> callback = new APICallBackCatcher<CompleteMilePaymentResponse>();
-        updateCompleteMilePaymentAsync(milesPaymentProvisionId, body, callback);
-        if(!callback.isSuccess())
-            throw callback.getError();
-        return callback.getResult();
+
+        HttpRequest _request = _buildUpdateCompleteMilePaymentRequest(milesPaymentProvisionId, body);
+        HttpResponse _response = getClientInstance().executeAsString(_request);
+        HttpContext _context = new HttpContext(_request, _response);
+
+        return _handleUpdateCompleteMilePaymentResponse(_context);
     }
 
     /**
@@ -207,103 +214,106 @@ public class PayWithMilesController extends BaseController {
     ) {
         Runnable _responseTask = new Runnable() {
             public void run() {
-                //the base uri for api requests
-                String _baseUri = Configuration.getBaseUri();
 
-                //prepare query string for API call
-                StringBuilder _queryBuilder = new StringBuilder(_baseUri);
-                _queryBuilder.append("/v2/pos/payments/{miles_payment_provision_id}");
-
-                //process template parameters
-                APIHelper.appendUrlWithTemplateParameters(_queryBuilder, new HashMap<String, Object>() {
-                    private static final long serialVersionUID = 1662038571660337302L;
-                    {
-                        put( "miles_payment_provision_id", milesPaymentProvisionId );
-                    }});
-                //validate and preprocess url
-                String _queryUrl = APIHelper.cleanUrl(_queryBuilder);
-
-                final String authorizationHeader;
-                try {
-                    authorizationHeader = OAuthManager.getInstance().getAuthorizationHeader();
-                } catch (Throwable e) {
-                   callBack.onFailure(null, e);
-                   return;
-                }
-                //load all headers for the outgoing API request
-                Map<String, String> _headers = new HashMap<String, String>() {
-                    private static final long serialVersionUID = 6809502995245157700L;
-                    {
-                        put( "Authorization", authorizationHeader);
-                        put( "user-agent", "APIMATIC 2.0" );
-                        put( "accept", "application/json" );
-                        put( "content-type", "application/json" );
-                    }
-                };
-
-                //prepare and invoke the API call request to fetch the response
                 HttpRequest _request;
                 try {
-                    _request = getClientInstance().putBody(_queryUrl, _headers, APIHelper.serialize(body));
-                } catch (JsonProcessingException jsonProcessingException) {
-                    //let the caller know of the error
-                    callBack.onFailure(null, jsonProcessingException);
+                    _request = _buildUpdateCompleteMilePaymentRequest(milesPaymentProvisionId, body);
+                } catch (Exception e) {
+                    callBack.onFailure(null, e);
                     return;
                 }
-                //invoke the callback before request if its not null
-                if (getHttpCallBack() != null)
-                {
-                    getHttpCallBack().OnBeforeRequest(_request);
-                }
 
-                //invoke request and get response
+                // Invoke request and get response
                 getClientInstance().executeAsStringAsync(_request, new APICallBack<HttpResponse>() {
                     public void onSuccess(HttpContext _context, HttpResponse _response) {
                         try {
-
-                            //invoke the callback after response if its not null
-                            if (getHttpCallBack() != null)	
-                            {
-                                getHttpCallBack().OnAfterResponse(_context);
-                            }
-
-                            //handle errors defined at the API level
-                            validateResponse(_response, _context);
-
-                            //extract result from the http response
-                            String _responseBody = ((HttpStringResponse)_response).getBody();
-                            CompleteMilePaymentResponse _result = APIHelper.deserialize(_responseBody,
-                                                        new TypeReference<CompleteMilePaymentResponse>(){});
-
-                            //let the caller know of the success
-                            callBack.onSuccess(_context, _result);
-                        } catch (APIException error) {
-                            //let the caller know of the error
-                            callBack.onFailure(_context, error);
-                        } catch (IOException ioException) {
-                            //let the caller know of the caught IO Exception
-                            callBack.onFailure(_context, ioException);
-                        } catch (Exception exception) {
-                            //let the caller know of the caught Exception
-                            callBack.onFailure(_context, exception);
+                            CompleteMilePaymentResponse returnValue = _handleUpdateCompleteMilePaymentResponse(_context);
+                            callBack.onSuccess(_context, returnValue);
+                        } catch (Exception e) {
+                            callBack.onFailure(_context, e);
                         }
                     }
-                    public void onFailure(HttpContext _context, Throwable _error) {
-                        //invoke the callback after response if its not null
-                        if (getHttpCallBack() != null)
-                        {
-                            getHttpCallBack().OnAfterResponse(_context);
-                        }
 
-                        //let the caller know of the failure
-                        callBack.onFailure(_context, _error);
+                    public void onFailure(HttpContext _context, Throwable _exception) {
+                        // Let the caller know of the failure
+                        callBack.onFailure(_context, _exception);
                     }
                 });
             }
         };
 
-        //execute async using thread pool
+        // Execute async using thread pool
         APIHelper.getScheduler().execute(_responseTask);
+    }
+
+    /**
+     * Builds the HttpRequest object for updateCompleteMilePayment
+     */
+    private HttpRequest _buildUpdateCompleteMilePaymentRequest(
+                final int milesPaymentProvisionId,
+                final CompleteMilePaymentRequest body) throws IOException, APIException {
+        //the base uri for api requests
+        String _baseUri = Configuration.getBaseUri();
+
+        //prepare query string for API call
+        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v2/pos/payments/{miles_payment_provision_id}");
+
+        //process template parameters
+        Map<String, Object> _templateParameters = new HashMap<String, Object>();
+        _templateParameters.put("miles_payment_provision_id", milesPaymentProvisionId);
+        APIHelper.appendUrlWithTemplateParameters(_queryBuilder, _templateParameters);
+        //validate and preprocess url
+        String _queryUrl = APIHelper.cleanUrl(_queryBuilder);
+
+        String authorizationHeader;
+        try {
+            authorizationHeader = OAuthManager.getInstance().getAuthorizationHeader();
+        } catch (Throwable e) {
+            // TODO Auto-generated catch block
+            throw new APIException(e.getMessage(), null);
+        }
+        //load all headers for the outgoing API request
+        Map<String, String> _headers = new HashMap<String, String>();
+
+        _headers.put( "Authorization", authorizationHeader);
+        _headers.put("user-agent", BaseController.userAgent);
+        _headers.put("accept", "application/json");
+        _headers.put("content-type", "application/json");
+
+
+        //prepare and invoke the API call request to fetch the response
+        HttpRequest _request = getClientInstance().putBody(_queryUrl, _headers, APIHelper.serialize(body));
+
+        // Invoke the callback before request if its not null
+        if (getHttpCallBack() != null) {
+            getHttpCallBack().OnBeforeRequest(_request);
+        }
+
+        return _request;
+    }
+
+    /**
+     * Processes the response for updateCompleteMilePayment
+     * @return An object of type void
+     */
+    private CompleteMilePaymentResponse _handleUpdateCompleteMilePaymentResponse(HttpContext _context)
+            throws APIException, IOException {
+        HttpResponse _response = _context.getResponse();
+
+        //invoke the callback after response if its not null
+        if (getHttpCallBack() != null) {
+            getHttpCallBack().OnAfterResponse(_context);
+        }
+
+        //handle errors defined at the API level
+        validateResponse(_response, _context);
+
+        //extract result from the http response
+        String _responseBody = ((HttpStringResponse)_response).getBody();
+        CompleteMilePaymentResponse _result = APIHelper.deserialize(_responseBody,
+                                                        new TypeReference<CompleteMilePaymentResponse>(){});
+
+        return _result;
     }
 
     /**
@@ -317,11 +327,12 @@ public class PayWithMilesController extends BaseController {
     public StartMilePaymentResponse createStartMilePayment(
                 final StartMilePaymentRequest body
     ) throws Throwable {
-        APICallBackCatcher<StartMilePaymentResponse> callback = new APICallBackCatcher<StartMilePaymentResponse>();
-        createStartMilePaymentAsync(body, callback);
-        if(!callback.isSuccess())
-            throw callback.getError();
-        return callback.getResult();
+
+        HttpRequest _request = _buildCreateStartMilePaymentRequest(body);
+        HttpResponse _response = getClientInstance().executeAsString(_request);
+        HttpContext _context = new HttpContext(_request, _response);
+
+        return _handleCreateStartMilePaymentResponse(_context);
     }
 
     /**
@@ -338,96 +349,100 @@ public class PayWithMilesController extends BaseController {
     ) {
         Runnable _responseTask = new Runnable() {
             public void run() {
-                //the base uri for api requests
-                String _baseUri = Configuration.getBaseUri();
 
-                //prepare query string for API call
-                StringBuilder _queryBuilder = new StringBuilder(_baseUri);
-                _queryBuilder.append("/v2/pos/payments");
-                //validate and preprocess url
-                String _queryUrl = APIHelper.cleanUrl(_queryBuilder);
-
-                final String authorizationHeader;
-                try {
-                    authorizationHeader = OAuthManager.getInstance().getAuthorizationHeader();
-                } catch (Throwable e) {
-                   callBack.onFailure(null, e);
-                   return;
-                }
-                //load all headers for the outgoing API request
-                Map<String, String> _headers = new HashMap<String, String>() {
-                    private static final long serialVersionUID = 6809502995245157700L;
-                    {
-                        put( "Authorization", authorizationHeader);
-                        put( "user-agent", "APIMATIC 2.0" );
-                        put( "accept", "application/json" );
-                        put( "content-type", "application/json" );
-                    }
-                };
-
-                //prepare and invoke the API call request to fetch the response
                 HttpRequest _request;
                 try {
-                    _request = getClientInstance().postBody(_queryUrl, _headers, APIHelper.serialize(body));
-                } catch (JsonProcessingException jsonProcessingException) {
-                    //let the caller know of the error
-                    callBack.onFailure(null, jsonProcessingException);
+                    _request = _buildCreateStartMilePaymentRequest(body);
+                } catch (Exception e) {
+                    callBack.onFailure(null, e);
                     return;
                 }
-                //invoke the callback before request if its not null
-                if (getHttpCallBack() != null)
-                {
-                    getHttpCallBack().OnBeforeRequest(_request);
-                }
 
-                //invoke request and get response
+                // Invoke request and get response
                 getClientInstance().executeAsStringAsync(_request, new APICallBack<HttpResponse>() {
                     public void onSuccess(HttpContext _context, HttpResponse _response) {
                         try {
-
-                            //invoke the callback after response if its not null
-                            if (getHttpCallBack() != null)	
-                            {
-                                getHttpCallBack().OnAfterResponse(_context);
-                            }
-
-                            //handle errors defined at the API level
-                            validateResponse(_response, _context);
-
-                            //extract result from the http response
-                            String _responseBody = ((HttpStringResponse)_response).getBody();
-                            StartMilePaymentResponse _result = APIHelper.deserialize(_responseBody,
-                                                        new TypeReference<StartMilePaymentResponse>(){});
-
-                            //let the caller know of the success
-                            callBack.onSuccess(_context, _result);
-                        } catch (APIException error) {
-                            //let the caller know of the error
-                            callBack.onFailure(_context, error);
-                        } catch (IOException ioException) {
-                            //let the caller know of the caught IO Exception
-                            callBack.onFailure(_context, ioException);
-                        } catch (Exception exception) {
-                            //let the caller know of the caught Exception
-                            callBack.onFailure(_context, exception);
+                            StartMilePaymentResponse returnValue = _handleCreateStartMilePaymentResponse(_context);
+                            callBack.onSuccess(_context, returnValue);
+                        } catch (Exception e) {
+                            callBack.onFailure(_context, e);
                         }
                     }
-                    public void onFailure(HttpContext _context, Throwable _error) {
-                        //invoke the callback after response if its not null
-                        if (getHttpCallBack() != null)
-                        {
-                            getHttpCallBack().OnAfterResponse(_context);
-                        }
 
-                        //let the caller know of the failure
-                        callBack.onFailure(_context, _error);
+                    public void onFailure(HttpContext _context, Throwable _exception) {
+                        // Let the caller know of the failure
+                        callBack.onFailure(_context, _exception);
                     }
                 });
             }
         };
 
-        //execute async using thread pool
+        // Execute async using thread pool
         APIHelper.getScheduler().execute(_responseTask);
+    }
+
+    /**
+     * Builds the HttpRequest object for createStartMilePayment
+     */
+    private HttpRequest _buildCreateStartMilePaymentRequest(
+                final StartMilePaymentRequest body) throws IOException, APIException {
+        //the base uri for api requests
+        String _baseUri = Configuration.getBaseUri();
+
+        //prepare query string for API call
+        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v2/pos/payments");
+        //validate and preprocess url
+        String _queryUrl = APIHelper.cleanUrl(_queryBuilder);
+
+        String authorizationHeader;
+        try {
+            authorizationHeader = OAuthManager.getInstance().getAuthorizationHeader();
+        } catch (Throwable e) {
+            // TODO Auto-generated catch block
+            throw new APIException(e.getMessage(), null);
+        }
+        //load all headers for the outgoing API request
+        Map<String, String> _headers = new HashMap<String, String>();
+
+        _headers.put( "Authorization", authorizationHeader);
+        _headers.put("user-agent", BaseController.userAgent);
+        _headers.put("accept", "application/json");
+        _headers.put("content-type", "application/json");
+
+
+        //prepare and invoke the API call request to fetch the response
+        HttpRequest _request = getClientInstance().postBody(_queryUrl, _headers, APIHelper.serialize(body));
+
+        // Invoke the callback before request if its not null
+        if (getHttpCallBack() != null) {
+            getHttpCallBack().OnBeforeRequest(_request);
+        }
+
+        return _request;
+    }
+
+    /**
+     * Processes the response for createStartMilePayment
+     * @return An object of type void
+     */
+    private StartMilePaymentResponse _handleCreateStartMilePaymentResponse(HttpContext _context)
+            throws APIException, IOException {
+        HttpResponse _response = _context.getResponse();
+
+        //invoke the callback after response if its not null
+        if (getHttpCallBack() != null) {
+            getHttpCallBack().OnAfterResponse(_context);
+        }
+
+        //handle errors defined at the API level
+        validateResponse(_response, _context);
+
+        //extract result from the http response
+        String _responseBody = ((HttpStringResponse)_response).getBody();
+        StartMilePaymentResponse _result = APIHelper.deserialize(_responseBody,
+                                                        new TypeReference<StartMilePaymentResponse>(){});
+
+        return _result;
     }
 
     /**
@@ -444,11 +459,12 @@ public class PayWithMilesController extends BaseController {
                 final String readCodeType,
                 final String terminalId
     ) throws Throwable {
-        APICallBackCatcher<GetMileProvisionsResponse> callback = new APICallBackCatcher<GetMileProvisionsResponse>();
-        getMileProvisionsAsync(readCode, readCodeType, terminalId, callback);
-        if(!callback.isSuccess())
-            throw callback.getError();
-        return callback.getResult();
+
+        HttpRequest _request = _buildGetMileProvisionsRequest(readCode, readCodeType, terminalId);
+        HttpResponse _response = getClientInstance().executeAsString(_request);
+        HttpContext _context = new HttpContext(_request, _response);
+
+        return _handleGetMileProvisionsResponse(_context);
     }
 
     /**
@@ -468,98 +484,108 @@ public class PayWithMilesController extends BaseController {
     ) {
         Runnable _responseTask = new Runnable() {
             public void run() {
-                //the base uri for api requests
-                String _baseUri = Configuration.getBaseUri();
 
-                //prepare query string for API call
-                StringBuilder _queryBuilder = new StringBuilder(_baseUri);
-                _queryBuilder.append("/v2/pos/payments");
-
-                //process query parameters
-                APIHelper.appendUrlWithQueryParameters(_queryBuilder, new HashMap<String, Object>() {
-                    private static final long serialVersionUID = 4967065967958336074L;
-                    {
-                        put( "read_code", readCode );
-                        put( "read_code_type", readCodeType );
-                        put( "terminal_id", terminalId );
-                    }});
-                //validate and preprocess url
-                String _queryUrl = APIHelper.cleanUrl(_queryBuilder);
-
-                final String authorizationHeader;
+                HttpRequest _request;
                 try {
-                    authorizationHeader = OAuthManager.getInstance().getAuthorizationHeader();
-                } catch (Throwable e) {
-                   callBack.onFailure(null, e);
-                   return;
-                }
-                //load all headers for the outgoing API request
-                Map<String, String> _headers = new HashMap<String, String>() {
-                    private static final long serialVersionUID = 6037128998165026643L;
-                    {
-                        put( "Authorization", authorizationHeader);
-                        put( "user-agent", "APIMATIC 2.0" );
-                        put( "accept", "application/json" );
-                    }
-                };
-
-                //prepare and invoke the API call request to fetch the response
-                final HttpRequest _request = getClientInstance().get(_queryUrl, _headers, null);
-
-                //invoke the callback before request if its not null
-                if (getHttpCallBack() != null)
-                {
-                    getHttpCallBack().OnBeforeRequest(_request);
+                    _request = _buildGetMileProvisionsRequest(readCode, readCodeType, terminalId);
+                } catch (Exception e) {
+                    callBack.onFailure(null, e);
+                    return;
                 }
 
-                //invoke request and get response
+                // Invoke request and get response
                 getClientInstance().executeAsStringAsync(_request, new APICallBack<HttpResponse>() {
                     public void onSuccess(HttpContext _context, HttpResponse _response) {
                         try {
-
-                            //invoke the callback after response if its not null
-                            if (getHttpCallBack() != null)	
-                            {
-                                getHttpCallBack().OnAfterResponse(_context);
-                            }
-
-                            //handle errors defined at the API level
-                            validateResponse(_response, _context);
-
-                            //extract result from the http response
-                            String _responseBody = ((HttpStringResponse)_response).getBody();
-                            GetMileProvisionsResponse _result = APIHelper.deserialize(_responseBody,
-                                                        new TypeReference<GetMileProvisionsResponse>(){});
-
-                            //let the caller know of the success
-                            callBack.onSuccess(_context, _result);
-                        } catch (APIException error) {
-                            //let the caller know of the error
-                            callBack.onFailure(_context, error);
-                        } catch (IOException ioException) {
-                            //let the caller know of the caught IO Exception
-                            callBack.onFailure(_context, ioException);
-                        } catch (Exception exception) {
-                            //let the caller know of the caught Exception
-                            callBack.onFailure(_context, exception);
+                            GetMileProvisionsResponse returnValue = _handleGetMileProvisionsResponse(_context);
+                            callBack.onSuccess(_context, returnValue);
+                        } catch (Exception e) {
+                            callBack.onFailure(_context, e);
                         }
                     }
-                    public void onFailure(HttpContext _context, Throwable _error) {
-                        //invoke the callback after response if its not null
-                        if (getHttpCallBack() != null)
-                        {
-                            getHttpCallBack().OnAfterResponse(_context);
-                        }
 
-                        //let the caller know of the failure
-                        callBack.onFailure(_context, _error);
+                    public void onFailure(HttpContext _context, Throwable _exception) {
+                        // Let the caller know of the failure
+                        callBack.onFailure(_context, _exception);
                     }
                 });
             }
         };
 
-        //execute async using thread pool
+        // Execute async using thread pool
         APIHelper.getScheduler().execute(_responseTask);
+    }
+
+    /**
+     * Builds the HttpRequest object for getMileProvisions
+     */
+    private HttpRequest _buildGetMileProvisionsRequest(
+                final String readCode,
+                final String readCodeType,
+                final String terminalId) throws IOException, APIException {
+        //the base uri for api requests
+        String _baseUri = Configuration.getBaseUri();
+
+        //prepare query string for API call
+        StringBuilder _queryBuilder = new StringBuilder(_baseUri + "/v2/pos/payments");
+
+        //process query parameters
+        Map<String, Object> _queryParameters = new HashMap<String, Object>();
+        _queryParameters.put("read_code", readCode);
+        _queryParameters.put("read_code_type", readCodeType);
+        _queryParameters.put("terminal_id", terminalId);
+        APIHelper.appendUrlWithQueryParameters(_queryBuilder, _queryParameters);
+        //validate and preprocess url
+        String _queryUrl = APIHelper.cleanUrl(_queryBuilder);
+
+        String authorizationHeader;
+        try {
+            authorizationHeader = OAuthManager.getInstance().getAuthorizationHeader();
+        } catch (Throwable e) {
+            // TODO Auto-generated catch block
+            throw new APIException(e.getMessage(), null);
+        }
+        //load all headers for the outgoing API request
+        Map<String, String> _headers = new HashMap<String, String>();
+
+        _headers.put( "Authorization", authorizationHeader);
+        _headers.put("user-agent", BaseController.userAgent);
+        _headers.put("accept", "application/json");
+
+
+        //prepare and invoke the API call request to fetch the response
+        HttpRequest _request = getClientInstance().get(_queryUrl, _headers, null);
+
+        // Invoke the callback before request if its not null
+        if (getHttpCallBack() != null) {
+            getHttpCallBack().OnBeforeRequest(_request);
+        }
+
+        return _request;
+    }
+
+    /**
+     * Processes the response for getMileProvisions
+     * @return An object of type void
+     */
+    private GetMileProvisionsResponse _handleGetMileProvisionsResponse(HttpContext _context)
+            throws APIException, IOException {
+        HttpResponse _response = _context.getResponse();
+
+        //invoke the callback after response if its not null
+        if (getHttpCallBack() != null) {
+            getHttpCallBack().OnAfterResponse(_context);
+        }
+
+        //handle errors defined at the API level
+        validateResponse(_response, _context);
+
+        //extract result from the http response
+        String _responseBody = ((HttpStringResponse)_response).getBody();
+        GetMileProvisionsResponse _result = APIHelper.deserialize(_responseBody,
+                                                        new TypeReference<GetMileProvisionsResponse>(){});
+
+        return _result;
     }
 
 }
