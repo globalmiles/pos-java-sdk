@@ -8,7 +8,10 @@ package com.globalmiles.pos.models;
 import java.util.*;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+@JsonInclude(Include.ALWAYS)
 public class StartMilePaymentRequest 
         implements java.io.Serializable {
     private static final long serialVersionUID = -2253620305047936440L;
@@ -98,4 +101,3 @@ public class StartMilePaymentRequest
     }
  
 }
- 

@@ -8,7 +8,10 @@ package com.globalmiles.pos.models;
 import java.util.*;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+@JsonInclude(Include.ALWAYS)
 public class ReceiptPictureRequest 
         implements java.io.Serializable {
     private static final long serialVersionUID = 644928521883650761L;
@@ -81,4 +84,3 @@ public class ReceiptPictureRequest
     }
  
 }
- 
